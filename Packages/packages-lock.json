@@ -1,5 +1,21 @@
 {
   "dependencies": {
+    "com.acegikmo.mathfs": {
+      "version": "https://github.com/FreyaHolmer/Mathfs.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "aaffa04ac0599a839edc6c45f9099460f9d950e8"
+    },
+    "com.domybest.mybox": {
+      "version": "https://github.com/Deadcows/MyBox.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0"
+      },
+      "hash": "afba2388773b7eeb9fec8ae9841c6db34969a54b"
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.9",
       "depth": 0,
