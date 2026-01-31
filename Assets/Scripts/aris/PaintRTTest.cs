@@ -86,6 +86,16 @@ public class PaintRTTest : MonoBehaviour
         }
     }
 
+    public void DrawAtUV(Vector2 uv, float brushSize, int userId = -1)
+    {
+        float previousBrushSize = this.brushSize;
+
+        this.brushSize = brushSize;
+        DrawAtUV(uv, userId);
+        this.brushSize = previousBrushSize;
+    }
+
+
     public void DrawAtUV(Vector2 uv, int userId = -1)
     {
         float deg = Random.Range(-paintRotationMinMax, paintRotationMinMax);
