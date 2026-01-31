@@ -23,8 +23,6 @@ public class InputController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Trigger Input Value: " + _triggerInputValue);
-
         // 트리거 값 버퍼에 저장 (순환)
         _triggerValueBuffer[_triggerValueBufferIndex] = _triggerInputValue;
         _triggerValueBufferIndex = (_triggerValueBufferIndex + 1) % _triggerValueBuffer.Length;
@@ -59,7 +57,6 @@ public class InputController : MonoBehaviour
 
     private void OnTriggerReleased(float releasedForce)
     {
-        Debug.Log($"Trigger Released! Force: {releasedForce}");
         ShootingData.Owner = this;
         ShootingData.ReticlePosition = _reticle.transform.position;
         ShootingData.TriggerValue = releasedForce;
