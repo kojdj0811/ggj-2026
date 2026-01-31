@@ -4,13 +4,15 @@ Shader "Custom/Reticle_BlurStepOutline"
     {
         // ===== Colors =====
         _Control        ("Control", Range(0,1)) = 0
+        _MaxScale       ("_MaxScale", Range(0.2,1)) = 0.3
+
         _BaseColor      ("Base Color", Color) = (1,1,1,1)
         _TargetColor    ("Target Color", Color) = (0,0.7,1,1)
         _TargetBlend    ("Target Blend (0~1)", Range(0,1)) = 0
         _OutlineColor   ("Outline Color", Color) = (0,0.7,1,1)
 
         // ===== Reticle Shape =====
-        _Scale      ("Scale", Range(0.2,0.95)) = 0.5
+        _Scale      ("Scale", Range(0.2,0.95)) = 0.2
         _Radius     ("Radius", Range(0,1)) = 0.28
         _Thickness  ("Thickness", Range(0,0.2)) = 0.012
 
@@ -60,6 +62,7 @@ Shader "Custom/Reticle_BlurStepOutline"
             };
 
             float _Control;
+            float _MaxScale;
 
             float4 _BaseColor;
             float4 _TargetColor;
@@ -98,6 +101,7 @@ Shader "Custom/Reticle_BlurStepOutline"
             void EvalControl(out float dashRatioEff, out float targetBlendEff, out float scaleEff)
             {
                 float c = saturate(_Control);
+                float maxsize = saturate(_MaxScale);
 
                 // DashRatio: 0..0.5 => 0.5 -> 1, then stay 1
                 float t01 = saturate(c / 0.5);
@@ -115,7 +119,9 @@ Shader "Custom/Reticle_BlurStepOutline"
                 else
                 {
                     float t = saturate((c - 0.5) / 0.5);
-                    scaleEff = lerp(0.2, 0.95, t);
+                    //최대 크기
+                    //
+                    scaleEff = lerp(0.2, maxsize, t);
                 }
             }
 
