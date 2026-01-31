@@ -44,6 +44,7 @@ public class GameTimer : MonoBehaviour
     {
         ItemSpawner.StopSpawn();
         BgmManager.Instance.StopBGM();
+        BgmManager.Instance.PlayBGM(GameManager.Instance.EndingBGM);
         TimeRemained = false;
         playerScores = TextureDiscriminator.Instance.GetPlyersPixelPercentages();
         gameOverUI.gameObject.SetActive(true);
