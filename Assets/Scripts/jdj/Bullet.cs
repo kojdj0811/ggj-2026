@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
             }
         }
 
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Item"))
+        if (brushSize >= PaintRTTest.Instance.brushSize && collision.gameObject.layer == LayerMask.NameToLayer("Item"))
         {
             GameManager.Instance.PlayGameSound(GameManager.Instance.HitClip);
 

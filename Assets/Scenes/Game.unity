@@ -1185,7 +1185,7 @@ MonoBehaviour:
   timerFillImage: {fileID: 1432381208}
   portraitRenderer: {fileID: 181513427}
   gameDuration: 30
-  gameOverUI: {fileID: 1503721341}
+  gameOverUI: {fileID: 1503721342}
   ItemSpawner: {fileID: 907217365}
 --- !u!4 &1295921932
 Transform:
