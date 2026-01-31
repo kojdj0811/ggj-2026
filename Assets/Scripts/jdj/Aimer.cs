@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Freya;
+using MyBox;
 using UnityEngine;
 
 public class Aimer : MonoBehaviour
@@ -11,6 +13,10 @@ public class Aimer : MonoBehaviour
     public Transform shootAngleTransform;
     public Transform planeTransform;
     public LayerMask planeLayer;
+    [Range(0.001f, 0.999f)]
+    public float triggerRate = 0.5f;
+    public AnimationCurve forceMultiplierCurve = AnimationCurve.Linear(0f, 0.5f, 1f, 1f);
+    public AnimationCurve spreadRadiusCurve = AnimationCurve.Linear(0f, 0.0f, 1f, 4f);
 
 
     private void Awake() {
@@ -30,16 +36,39 @@ public class Aimer : MonoBehaviour
 
     public void ShootBullet(Vector3 arrivalPoint, float triggerValue, int userId)
     {
-        float force = GetForceToArrivalPoint(shootAngleTransform.forward, arrivalPoint - planeTransform.up * 0.5f);
+        (float forceMultiplier, float spreadRadius) = SplitTriggerValuse(triggerValue);
+
+        if(spreadRadius > 0f)
+        {
+            Vector2 rundomOffset = UnityEngine.Random.insideUnitCircle;
+            Vector2 spreadOffset = rundomOffset.Sign() * rundomOffset.Pow(2f) * spreadRadius;
+            arrivalPoint += planeTransform.right * spreadOffset.x + planeTransform.up * spreadOffset.y;
+        }
+
+        transform.LookAt(arrivalPoint);
+        float force = GetForceToArrivalPoint(shootAngleTransform.forward, arrivalPoint - planeTransform.forward * 0.5f);
 
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
         bulletRb.position = transform.position;
-        bulletRb.linearVelocity = shootAngleTransform.forward * force;
+        bulletRb.linearVelocity = shootAngleTransform.forward * force * forceMultiplier;
     }
 
 
-    public float GetForceToArrivalPoint(Vector3 dir, Vector3 arrivalPoint)
+    private (float, float) SplitTriggerValuse(float triggerValue)
+    {
+        float forceMultiplierT = Mathf.Clamp01(triggerValue / triggerRate);
+        float forceMultiplier = forceMultiplierCurve.Evaluate(forceMultiplierT);
+
+        float spreadRate = Mathf.Clamp01((triggerValue - triggerRate) / (1f - triggerRate));
+        float spreadRadius = spreadRadiusCurve.Evaluate(spreadRate);
+
+        return (forceMultiplier, spreadRadius);        
+    }
+
+
+
+    private float GetForceToArrivalPoint(Vector3 dir, Vector3 arrivalPoint)
     {
         // 1. 수직 높이 차이를 계산합니다.
         float yDisplacement = arrivalPoint.y - transform.position.y;
@@ -111,8 +140,7 @@ public class Aimer : MonoBehaviour
             Gizmos.DrawSphere(hit.point, 0.1f);
 
             Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(hit.point - planeTransform.up * 0.5f, 0.1f);
+            Gizmos.DrawSphere(hit.point - planeTransform.forward * 0.5f, 0.1f);
         }
-
     }
 }
