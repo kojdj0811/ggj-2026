@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 
 [System.Serializable]
 public class ShootingData
@@ -63,8 +65,20 @@ public class InputController : MonoBehaviour
         _reticle.transform.position = nextReticlePos;
     }
 
-    private void OnTriggerReleased(float releasedForce)
+    private async Task OnTriggerReleased(float releasedForce)
     {
+        // 컨트롤러 바이브레이션 (진동) 예시
+        if (UnityEngine.InputSystem.Gamepad.current != null)
+        {
+            // releasedForce를 진동 세기로 활용 (0~1)
+            float vibration = Mathf.Clamp01(releasedForce);
+            UnityEngine.InputSystem.Gamepad.current.SetMotorSpeeds(0f, vibration);
+            // 진동을 잠시 후 멈추는 예시 (0.5초)
+            await UniTask.Delay(500);
+            UnityEngine.InputSystem.Gamepad.current.SetMotorSpeeds(0, 0);
+        }
+
+
         ShootingData.Owner = this;
         ShootingData.ReticlePosition = _reticle.transform.position;
         ShootingData.TriggerValue = releasedForce;
