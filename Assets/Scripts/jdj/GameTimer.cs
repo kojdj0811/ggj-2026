@@ -18,6 +18,7 @@ public class GameTimer : MonoBehaviour
     {
         TimeRemained = true;
         startTime = Time.timeSinceLevelLoad;
+        BgmManager.Instance.PlayBGM(GameManager.Instance.BGM);
         Debug.Log("Game Start!");
     }
 
@@ -39,6 +40,7 @@ public class GameTimer : MonoBehaviour
 
     void OnGameOver()
     {
+        BgmManager.Instance.StopBGM();
         TimeRemained = false;
         playerScores = TextureDiscriminator.Instance.GetPlyersPixelPercentages();
         gameOverUI.gameObject.SetActive(true);

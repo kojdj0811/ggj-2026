@@ -1,12 +1,9 @@
-
-
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
 using Cysharp.Threading.Tasks;
 using UnityEngine.SceneManagement;
-
 
 public class UIManager : Singleton<UIManager>
 {
@@ -25,6 +22,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField]
     private AudioSource _audioSource;
     [Header("UI Sound Clips")]
+    public AudioClip BGM;
     public AudioClip ColorSwitchClip;
     public AudioClip ColorSelectClip;
     public AudioClip CountDownClip;
@@ -42,6 +40,7 @@ public class UIManager : Singleton<UIManager>
 
         if (_isPlayer1Ready && _isPlayer2Ready)
         {
+            BgmManager.Instance.StopBGM();
             // 두 플레이어가 준비되었을 때의 로직
             PlayUISound(CountDownClip);
             CountdownAsync().Forget();
@@ -64,6 +63,7 @@ public class UIManager : Singleton<UIManager>
             CountdownText.text = "GO!";
 
         SceneManager.LoadScene("Game");
+        
     }
 
     public void PlayUISound(AudioClip clip)

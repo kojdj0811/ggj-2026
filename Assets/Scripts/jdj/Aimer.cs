@@ -36,7 +36,9 @@ public class Aimer : MonoBehaviour
 
     public void ShootBullet(Vector3 arrivalPoint, float triggerValue, int userId)
     {
-        if(GameTimer.TimeRemained == false)
+        GameManager.Instance.PlayGameSound(GameManager.Instance.ShootClip);
+
+        if (GameTimer.TimeRemained == false)
         {
             return;
         }

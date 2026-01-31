@@ -8,6 +8,13 @@ public class GameManager : Singleton<GameManager>
     public List<Player> Players = new List<Player>();
     public ColorDataSO ColorDataSO;
 
+    [SerializeField]
+    private AudioSource _audioSource;
+    [Header("Game Sound Clips")]
+    public AudioClip BGM;
+    public AudioClip ShootClip;
+    public AudioClip HitClip;
+
     public void OnJoinedPlayer(Player player)
     {
         player.transform.SetParent(transform);
@@ -34,6 +41,19 @@ public class GameManager : Singleton<GameManager>
         if (Input.GetKeyDown(KeyCode.S))
         {
             UIManager.Instance.CountdownAsync().Forget();
+        }
+    }
+
+    public void PlayGameSound(AudioClip clip)
+    {
+        if (_audioSource == null)
+        {
+            _audioSource = FindFirstObjectByType<AudioSource>();
+        }
+
+        if (clip != null)
+        {
+            _audioSource.PlayOneShot(clip);
         }
     }
 }
