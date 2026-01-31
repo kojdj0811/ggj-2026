@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CanvasTiltFx : MonoBehaviour
 {
+    public static CanvasTiltFx Instance;
     private Quaternion initRotation;
     public float impactMultiplier = 500f; // 충격량 계수
     public float spring = 100.0f; // 복원력(스프링)
@@ -12,6 +13,15 @@ public class CanvasTiltFx : MonoBehaviour
 
     void Awake()
     {
+        if(Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        angularVelocity = Vector3.zero;
+
         initRotation = transform.rotation;
         currentRotation = initRotation;
     }

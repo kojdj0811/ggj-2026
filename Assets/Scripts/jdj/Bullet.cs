@@ -13,24 +13,28 @@ public class Bullet : MonoBehaviour
         {
             GameManager.Instance.PlayGameSound(GameManager.Instance.HitClip);
 
-            Debug.LogError("AAA");
-            if (Physics.Raycast(transform.position, (collision.contacts[0].point - transform.position).normalized, out RaycastHit hitInfo, 10f, LayerMask.GetMask("Canvas")))
+            if (Physics.Raycast(transform.position, CanvasTiltFx.Instance.transform.forward, out RaycastHit hitInfo, 10f, LayerMask.GetMask("Canvas")))
             {
-            Debug.LogError("BBB");
                 PaintRTTest.Instance.DrawAtUV(hitInfo.textureCoord, brushSize, gameObject.tag.CompareTo("BulletL") == 0 ? 0 : 1);
                 CameraShaker.Instance.ShakeCamera().Forget();
             }
         }
 
-        if (brushSize >= PaintRTTest.Instance.brushSize && collision.gameObject.layer == LayerMask.NameToLayer("Item"))
+        Destroy(gameObject);
+
+    }
+
+    void OnTriggerEnter (Collider other)
+    {
+        if (brushSize >= PaintRTTest.Instance.brushSize && other.gameObject.layer == LayerMask.NameToLayer("Item"))
         {
             GameManager.Instance.PlayGameSound(GameManager.Instance.BombClip);
 
-            switch (collision.gameObject.tag)
+            switch (other.gameObject.tag)
             {
                 case "Bomb":
                     Debug.Log("Bullet hit Bomb");
-                    if (Physics.Raycast(transform.position, (collision.contacts[0].point - transform.position).normalized, out RaycastHit hitInfo, 10f, LayerMask.GetMask("Canvas")))
+                    if (Physics.Raycast(other.gameObject.transform.position, CanvasTiltFx.Instance.transform.forward, out RaycastHit hitInfo, 10f, LayerMask.GetMask("Canvas")))
                     {
                         PaintRTTest.Instance.DrawAtUV(hitInfo.textureCoord, 1.0f, gameObject.tag.CompareTo("BulletL") == 0 ? 0 : 1);
                         CameraShaker.Instance.ShakeCamera().Forget();
@@ -41,12 +45,11 @@ public class Bullet : MonoBehaviour
                     break;
             }
 
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
+            Destroy(gameObject);
         }
-
-        Destroy(gameObject);
-
     }
+
 
     private void Update()
     {
