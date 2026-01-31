@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -10,6 +11,7 @@ public class Bullet : MonoBehaviour
             if(Physics.Raycast(transform.position, (collision.contacts[0].point - transform.position).normalized, out RaycastHit hitInfo, 1f, LayerMask.GetMask("Canvas")))
             {
                 PaintRTTest.Instance.DrawAtUV(hitInfo.textureCoord);
+                CameraShaker.Instance.ShakeCamera().Forget();
             }
             
             Destroy(gameObject);

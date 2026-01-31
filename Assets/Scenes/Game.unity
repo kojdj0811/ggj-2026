@@ -309,6 +309,7 @@ GameObject:
   - component: {fileID: 209700208}
   - component: {fileID: 209700207}
   - component: {fileID: 209700210}
+  - component: {fileID: 209700211}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -434,6 +435,20 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &209700211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 209700206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a6c3ac53682a014f814fa58df6539c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraShaker
+  duration: 0.15
+  magnitude: 0.04
 --- !u!1 &347593604
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,6 +531,8 @@ MonoBehaviour:
   paintRT: {fileID: 8400000, guid: 88aa43d875ac84656b7325f7c768674e, type: 2}
   A_brushTex: {fileID: 2800000, guid: f114853a3e36d487bb7ab06922d0fead, type: 3}
   B_brushTex: {fileID: 2800000, guid: 156a06064d7f141098f6fe7e3fd000fb, type: 3}
+  A_paintColor: {r: 1, g: 0, b: 0, a: 1}
+  B_paintColor: {r: 0, g: 0, b: 1, a: 1}
   brushSize: 0.2
   user: 0
 --- !u!4 &452555309
@@ -1170,6 +1187,7 @@ GameObject:
   - component: {fileID: 1694331989}
   - component: {fileID: 1694331988}
   - component: {fileID: 1694331987}
+  - component: {fileID: 1694331991}
   m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
@@ -1272,6 +1290,21 @@ Transform:
   - {fileID: 1419095209}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
+--- !u!114 &1694331991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694331986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a9d08eeb7b04e7488dbbd690fff56d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CanvasTiltFx
+  impactMultiplier: 10000
+  spring: 200
+  damper: 10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -21,7 +21,7 @@ public class InputController : MonoBehaviour
 
     public ShootingData ShootingData;
 
-    void Update()
+    void LateUpdate()
     {
         // 트리거 값 버퍼에 저장 (순환)
         _triggerValueBuffer[_triggerValueBufferIndex] = _triggerInputValue;
