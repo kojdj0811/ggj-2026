@@ -1,8 +1,7 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cysharp.Threading.Tasks;
-using System.Threading.Tasks;
+using System.Threading;
 
 [System.Serializable]
 public class ShootingData
@@ -14,6 +13,7 @@ public class ShootingData
 
 public class InputController : MonoBehaviour
 {
+    private CancellationTokenSource _vibrationCts;
     [SerializeField]
     private EntrySelector _entrySelector;
     [SerializeField]
@@ -30,7 +30,8 @@ public class InputController : MonoBehaviour
 
     private Renderer _reticleRenderer;
 
-    private void Awake() {
+    private void Awake()
+    {
         player = GetComponent<Player>();
         _reticleRenderer = _reticle.GetComponent<Renderer>();
     }
@@ -50,7 +51,7 @@ public class InputController : MonoBehaviour
                 if (_triggerValueBuffer[i] > maxForce)
                     maxForce = _triggerValueBuffer[i];
             }
-            OnTriggerReleased(maxForce);
+            OnTriggerReleased(maxForce).Forget();
         }
         _prevTriggerInputValue = _triggerInputValue;
 
@@ -65,41 +66,49 @@ public class InputController : MonoBehaviour
         nextReticlePos.y = nextReticlePosV.y > 1f ? currentReticlePos.y :
                              nextReticlePosV.y < 0f ? currentReticlePos.y :
                              nextReticlePos.y;
-    
+
         _reticle.transform.position = nextReticlePos;
     }
 
-    private async Task OnTriggerReleased(float releasedForce)
+    private async UniTaskVoid OnTriggerReleased(float releasedForce)
     {
-        // 컨트롤러 바이브레이션 (진동) 예시
-        if (UnityEngine.InputSystem.Gamepad.current != null)
-        {
-            // releasedForce를 진동 세기로 활용 (0~1)
-            float vibration = Mathf.Clamp01(releasedForce);
-            UnityEngine.InputSystem.Gamepad.current.SetMotorSpeeds(0f, vibration);
-            // 진동을 잠시 후 멈추는 예시 (0.5초)
-            await UniTask.Delay(500);
-            UnityEngine.InputSystem.Gamepad.current.SetMotorSpeeds(0, 0);
-        }
-
-
         ShootingData.Owner = this;
         ShootingData.ReticlePosition = _reticle.transform.position;
         ShootingData.TriggerValue = releasedForce;
 
-                // 현재 레이캐스트에 맞고있는 Toggle/버튼 처리
+        // 현재 레이캐스트에 맞고있는 Toggle/버튼 처리
         if (_entrySelector != null)
         {
             _entrySelector.ClickCurrentButton();
             _entrySelector.SelectCurrentToggle();
         }
-        
+
         Ray ray = Camera.main.ViewportPointToRay(Camera.main.WorldToViewportPoint(_reticle.transform.position));
         // 0 is temp id for test. replcae this with actual player id later
-        if(Aimer.Aimers != null && Aimer.Aimers.ContainsKey(0) && Physics.Raycast(ray, out RaycastHit hit, 1000f, Aimer.Aimers[0].planeLayer))
+        if (Aimer.Aimers != null && Aimer.Aimers.ContainsKey(0) && Physics.Raycast(ray, out RaycastHit hit, 1000f, Aimer.Aimers[0].planeLayer))
         {
             Aimer.Aimers[player.PlayerID].ShootBullet(hit.point, releasedForce, 0);
         }
+
+        // 컨트롤러 바이브레이션 (진동) - 중복 방지
+        if (Gamepad.current != null)
+        {
+            _vibrationCts?.Cancel();
+            _vibrationCts = new CancellationTokenSource();
+            float vibration = Mathf.Clamp01(releasedForce);
+            Gamepad.current.SetMotorSpeeds(0f, vibration);
+            VibrationStopAsync(_vibrationCts.Token).Forget();
+        }
+    }
+
+    private async UniTaskVoid VibrationStopAsync(CancellationToken token)
+    {
+        try
+        {
+            await UniTask.Delay(500, cancellationToken: token);
+            Gamepad.current?.SetMotorSpeeds(0, 0);
+        }
+        catch (System.OperationCanceledException) { /* 진동 취소됨 */ }
     }
 
     private void OnStickInput(InputValue value)
