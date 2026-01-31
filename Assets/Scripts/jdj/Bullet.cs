@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
 
         if (brushSize >= PaintRTTest.Instance.brushSize && collision.gameObject.layer == LayerMask.NameToLayer("Item"))
         {
-            GameManager.Instance.PlayGameSound(GameManager.Instance.ItemGainClip);
+            GameManager.Instance.PlayGameSound(GameManager.Instance.BombClip);
 
             switch (collision.gameObject.tag)
             {

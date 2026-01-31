@@ -76,6 +76,7 @@ public class GameTimer : MonoBehaviour
 
     public void RestartGame()
     {
+        GameManager.Instance.RemoveAllPlayersData();
         SceneManager.LoadScene("Entry");
     }
 }
