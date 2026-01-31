@@ -51,9 +51,6 @@ public class PlayerUIPanel : MonoBehaviour
             // 선택된 색상에 해당하는 캐릭터 스프라이트 업데이트
             UpdateCharacterSprite(colorIndex);
         }
-
-        // 선택된 색상에 해당하는 캐릭터 스프라이트 업데이트
-        UpdateCharacterSprite(colorIndex);
     }
 
     private void UpdateCharacterSprite(int colorIndex)
