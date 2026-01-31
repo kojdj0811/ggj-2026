@@ -25,7 +25,7 @@ public class TextureDiscriminator : MonoBehaviour
         );
 
         ColorUtility.TryParseHtmlString(
-            GameManager.Instance.ColorDataSO.GetColorCodeByIndex(GameManager.Instance.Players[1].ColorID),
+            GameManager.Instance.ColorDataSO.GetColorCodeByIndex(GameManager.Instance.Players[1].ColorID + 14),
             out playerColor2
         );
 
@@ -36,8 +36,8 @@ public class TextureDiscriminator : MonoBehaviour
         computeShader.SetTexture(_kernelHandle, "inputTexture", canvas);
         computeShader.SetBuffer(_kernelHandle, "Player1outputInt", _computeShaderBuffer_player1);
         computeShader.SetBuffer(_kernelHandle, "Player2outputInt", _computeShaderBuffer_player2);
-        computeShader.SetVector("PlayerColor1", playerColor1);
-        computeShader.SetVector("PlayerColor2", playerColor2);
+        computeShader.SetVector("PlayerColor1", playerColor1.linear);
+        computeShader.SetVector("PlayerColor2", playerColor2.linear);
     }
 
     void Awake()
@@ -57,9 +57,9 @@ public class TextureDiscriminator : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space))
         {
             // uncomment to test with different texture
-            // computeShader.SetTexture(_kernelHandle, "inputTexture", TestImgae);
-            // computeShader.SetVector("PlayerColor1", playerColor1);
-            // computeShader.SetVector("PlayerColor2", playerColor2);
+            computeShader.SetTexture(_kernelHandle, "inputTexture", canvas);
+            computeShader.SetVector("PlayerColor1", playerColor1.linear);
+            computeShader.SetVector("PlayerColor2", playerColor2.linear);
 
             var (player1Percentage, player2Percentage) = GetPlyersPixelPercentages();
             Debug.Log($"Player 1 Percentage: {player1Percentage}");
@@ -77,7 +77,8 @@ public class TextureDiscriminator : MonoBehaviour
         computeShader.Dispatch(_kernelHandle, canvas.width / 8, canvas.height / 8, 1);
         _computeShaderBuffer_player1.GetData(playerOutput1);
         _computeShaderBuffer_player2.GetData(playerOutput2);
-
+Debug.Log($"Player 1 Pixel Count: {playerOutput1[0]}");
+Debug.Log($"Player 2 Pixel Count: {playerOutput2[0]}");
         float totalPixels = canvas.width * canvas.height;
         float player1Percentage = playerOutput1[0] / totalPixels;
         float player2Percentage = playerOutput2[0] / totalPixels;

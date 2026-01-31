@@ -45,13 +45,10 @@ public class PaintRTTest : MonoBehaviour
         );
 
         ColorUtility.TryParseHtmlString(
-            GameManager.Instance.ColorDataSO.GetColorCodeByIndex(GameManager.Instance.Players[1].ColorID),
+            GameManager.Instance.ColorDataSO.GetColorCodeByIndex(GameManager.Instance.Players[1].ColorID + 14),
             out B_paintColor
         );
-    }
 
-    void Start()
-    {
         drawMat = new Material(Shader.Find("Hidden/RTDraw"));
         drawNormalMat = new Material(Shader.Find("Hidden/RTDrawNormal"));
 
@@ -75,6 +72,7 @@ public class PaintRTTest : MonoBehaviour
         if (drawNormalMat.shader == null)
             Debug.LogError("Hidden/RTDrawNormal shader not found (compile failed or file missing).");
     }
+
 
     void Update()
     {
