@@ -5,55 +5,65 @@ public class PaintRTTest : MonoBehaviour
     public static PaintRTTest Instance;
 
     public Camera cam;
+
+    [Header("RTs")]
     public RenderTexture paintRT;
-    public Texture2D A_brushTex; // 발바닥 텍스처
-    public Texture2D B_brushTex; // 발바닥 텍스처
-    private Texture2D _brushTex; // 발바닥 텍스처
-    public Color A_paintColor = Color.red; // User A = red
-    public Color B_paintColor = Color.blue; // User A = red
+    public RenderTexture normalRT; // ✅ 추가
+
+    [Header("User A")]
+    public Texture2D[] A_brushVars = new Texture2D[3]; // ✅ 3 variants (foot+splatter mask)
+    public Texture2D A_footMask;                       // ✅ foot only mask
+    public Texture2D A_footNormal;                     // ✅ one normal for all variants
+    public Color A_paintColor = Color.red;
+
+    [Header("User B")]
+    public Texture2D[] B_brushVars = new Texture2D[3];
+    public Texture2D B_footMask;
+    public Texture2D B_footNormal;
+    public Color B_paintColor = Color.blue;
+
+    [Header("Stamp Settings")]
     public float brushSize = 0.2f;
-    public float paintRotationMinMax = 45;
+    public float paintRotationMinMax = 45f;
+    [Range(0f, 1f)] public float normalThreshold = 0.5f;
+    [Range(0f, 2f)] public float normalStrength = 1.0f;
 
-    Material drawMat;
+    Material drawMat;        // Hidden/RTDraw
+    Material drawNormalMat;  // Hidden/RTDrawNormal
 
-    public enum PaintUser
-    {
-        UserA,
-        UserB
-    }
-
+    public enum PaintUser { UserA, UserB }
     public PaintUser user;
 
     void Awake()
     {
-        if(Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
+        if (Instance != null) { Destroy(gameObject); return; }
         Instance = this;
     }
 
     void Start()
     {
-       drawMat = new Material(Shader.Find("Hidden/RTDraw"));
+        drawMat = new Material(Shader.Find("Hidden/RTDraw"));
+        drawNormalMat = new Material(Shader.Find("Hidden/RTDrawNormal"));
 
-        // paintRT가 인스펙터에서 할당되어 있다고 가정
         if (paintRT == null)
         {
             Debug.LogError("paintRT is null");
             return;
         }
 
-        if (!paintRT.IsCreated())
-            paintRT.Create();
+        if (!paintRT.IsCreated()) paintRT.Create();
+        if (normalRT != null && !normalRT.IsCreated()) normalRT.Create();
 
-        // 렌더 텍스처를 흰색으로 초기화
-        var prev = RenderTexture.active;
-        RenderTexture.active = paintRT;
-        GL.Clear(true, true, Color.white);   // (1,1,1,1)
-        RenderTexture.active = prev;
+        // paintRT white
+        ClearRT(paintRT, Color.white);
+
+        // normalRT flat normal
+        if (normalRT != null)
+            ClearRT(normalRT, new Color(0.5f, 0.5f, 1f, 1f));
+
+        // shader 존재 체크(디버그용)
+        if (drawNormalMat.shader == null)
+            Debug.LogError("Hidden/RTDrawNormal shader not found (compile failed or file missing).");
     }
 
     void Update()
@@ -68,64 +78,84 @@ public class PaintRTTest : MonoBehaviour
         }
     }
 
-    
     public void DrawAtUV(Vector2 uv)
     {
-        drawMat.SetVector("_UV", uv);
-        drawMat.SetFloat("_Size", brushSize);
-
-        Color channelColor = Color.black;
-
-        if (user == PaintUser.UserA){
-            channelColor = A_paintColor;   // R 채널
-            _brushTex = A_brushTex;
-        }
-        else{
-            channelColor = B_paintColor;  // B 채널
-            _brushTex = B_brushTex;
-        }
-
-        drawMat.SetColor("_Color", channelColor);
-        drawMat.SetTexture("_BrushTex", _brushTex);
         float deg = Random.Range(-paintRotationMinMax, paintRotationMinMax);
         float rot = deg * Mathf.Deg2Rad;
-        drawMat.SetFloat("_Rotation", rot);
 
+        Color col;
+        Texture2D stampVar;
+        Texture2D footMask;
+        Texture2D footNormal;
 
-        RenderTexture temp = RenderTexture.GetTemporary(
-            paintRT.width,
-            paintRT.height,
-            0,
-            paintRT.format
-        );
+        if (user == PaintUser.UserA)
+        {
+            col = A_paintColor;
+            stampVar = PickVar(A_brushVars);
+            footMask = A_footMask;
+            footNormal = A_footNormal;
+        }
+        else
+        {
+            col = B_paintColor;
+            stampVar = PickVar(B_brushVars);
+            footMask = B_footMask;
+            footNormal = B_footNormal;
+        }
 
-        Graphics.Blit(paintRT, temp);
-        Graphics.Blit(temp, paintRT, drawMat);
+        // 1) Color/Mask stamp (foot + splatter)
+        if (stampVar != null)
+        {
+            drawMat.SetVector("_UV", uv);
+            drawMat.SetFloat("_Size", brushSize);
+            drawMat.SetFloat("_Rotation", rot);
+            drawMat.SetColor("_Color", col);
+            drawMat.SetTexture("_BrushTex", stampVar);
 
-        RenderTexture.ReleaseTemporary(temp);
+            BlitStamp(paintRT, drawMat);
+        }
+
+        // 2) Normal stamp (foot only)
+        if (normalRT != null && footMask != null && footNormal != null)
+        {
+            drawNormalMat.SetVector("_UV", uv);
+            drawNormalMat.SetFloat("_Size", brushSize);
+            drawNormalMat.SetFloat("_Rotation", rot);
+            drawNormalMat.SetFloat("_Threshold", normalThreshold);
+            drawNormalMat.SetFloat("_Strength", normalStrength);
+            drawNormalMat.SetTexture("_MaskTex", footMask);
+            drawNormalMat.SetTexture("_NormalTex", footNormal);
+
+            BlitStamp(normalRT, drawNormalMat);
+        }
     }
-    
-    /*
-    void DrawAtUV(Vector2 uv)
+
+    // --- helpers ---
+    static Texture2D PickVar(Texture2D[] vars)
     {
-        drawMat.SetTexture("_BrushTex", brushTex);
-        drawMat.SetVector("_UV", uv);
-        drawMat.SetFloat("_Size", brushSize);
+        if (vars == null || vars.Length == 0) return null;
 
-        RenderTexture temp = RenderTexture.GetTemporary(
-            paintRT.width,
-            paintRT.height,
-            0,
-            paintRT.format
-        );
+        for (int i = 0; i < 6; i++)
+        {
+            var t = vars[Random.Range(0, vars.Length)];
+            if (t != null) return t;
+        }
+        return vars[0];
+    }
 
-        // 1️⃣ 기존 RT를 temp로 복사
-        Graphics.Blit(paintRT, temp);
-
-        // 2️⃣ temp를 source로, paintRT를 destination으로
-        Graphics.Blit(temp, paintRT, drawMat);
-
+    static void BlitStamp(RenderTexture target, Material mat)
+    {
+        var temp = RenderTexture.GetTemporary(target.width, target.height, 0, target.format);
+        Graphics.Blit(target, temp);
+        Graphics.Blit(temp, target, mat);
         RenderTexture.ReleaseTemporary(temp);
     }
-    */
+
+    static void ClearRT(RenderTexture rt, Color c)
+    {
+        var prev = RenderTexture.active;
+        RenderTexture.active = rt;
+        GL.Clear(true, true, c);
+        RenderTexture.active = prev;
+    }
 }

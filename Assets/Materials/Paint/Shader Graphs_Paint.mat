@@ -41,6 +41,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 0c99ee7d0201c49ffb58dc70955d3519, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NormalRT:
+        m_Texture: {fileID: 8400000, guid: d3ec48d4b7bde46bbba4152aa52c4ec9, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _PaintRT:
         m_Texture: {fileID: 8400000, guid: 88aa43d875ac84656b7325f7c768674e, type: 2}
         m_Scale: {x: 1, y: 1}

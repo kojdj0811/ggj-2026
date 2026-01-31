@@ -529,11 +529,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PaintRTTest
   cam: {fileID: 209700208}
   paintRT: {fileID: 8400000, guid: 88aa43d875ac84656b7325f7c768674e, type: 2}
-  A_brushTex: {fileID: 2800000, guid: f114853a3e36d487bb7ab06922d0fead, type: 3}
-  B_brushTex: {fileID: 2800000, guid: 156a06064d7f141098f6fe7e3fd000fb, type: 3}
+  normalRT: {fileID: 8400000, guid: d3ec48d4b7bde46bbba4152aa52c4ec9, type: 2}
+  A_brushVars:
+  - {fileID: 2800000, guid: 5bfd22a32279442ae879e3966b4bd64b, type: 3}
+  - {fileID: 2800000, guid: 5ba63683d2f0a4f0ca1ebf12ddcef492, type: 3}
+  - {fileID: 2800000, guid: 357df1b5e0ad14f6b9b960ea48335825, type: 3}
+  A_footMask: {fileID: 2800000, guid: add8b3da2890b4c2889fd2b4d288c73c, type: 3}
+  A_footNormal: {fileID: 2800000, guid: 9a937751c86b0428c8d0345bff5ed6a1, type: 3}
   A_paintColor: {r: 1, g: 0, b: 0, a: 1}
+  B_brushVars:
+  - {fileID: 2800000, guid: 4cf79bc1da4904eb4b0ce8796739e40a, type: 3}
+  - {fileID: 2800000, guid: 28d6803745fa9424c8bcff979cb9afd7, type: 3}
+  - {fileID: 2800000, guid: 4609d955d50694871961a311d62d3bc4, type: 3}
+  B_footMask: {fileID: 2800000, guid: 914196a669d2840249495f5d8ec9ee85, type: 3}
+  B_footNormal: {fileID: 2800000, guid: 7e7a9800db99744b1ade68f227826b6d, type: 3}
   B_paintColor: {r: 0, g: 0, b: 1, a: 1}
   brushSize: 0.2
+  paintRotationMinMax: 45
+  normalThreshold: 0.5
+  normalStrength: 1
   user: 0
 --- !u!4 &452555309
 Transform:
