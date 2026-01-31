@@ -67,13 +67,17 @@ Shader "Hidden/RTDraw"
                 if (diff.x < 0 || diff.x > 1 || diff.y < 0 || diff.y > 1)
                     return baseCol;
 
-                half brush =
-                    SAMPLE_TEXTURE2D(_BrushTex, sampler_BrushTex, diff).r;
+                half brush = SAMPLE_TEXTURE2D(_BrushTex, sampler_BrushTex, diff).r;
+                brush = step(0.5, brush);   // 0 or 1
 
-                half4 paintCol = _Color * brush;
+                half mask = step(0.5, brush);
+
+                half4 paintCol;
+                paintCol.rgb = _Color.rgb;
+                paintCol.a   = mask;
 
                 // 누적
-                return lerp(baseCol, paintCol, paintCol.a);
+                return lerp(baseCol, paintCol, mask);
             }
             ENDHLSL
         }
