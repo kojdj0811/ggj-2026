@@ -27,7 +27,7 @@ public class Aimer : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Return))
         {
-            if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 100f, planeLayer))
+            if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 1000f, planeLayer))
             {
                 ShootBullet(hit.point, 1f, 0);
             }
@@ -134,7 +134,7 @@ public class Aimer : MonoBehaviour
     {
         Gizmos.color = Color.red;
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 100f, planeLayer))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 1000f, planeLayer))
         {
             Gizmos.DrawLine(transform.position, hit.point);
             Gizmos.DrawSphere(hit.point, 0.1f);

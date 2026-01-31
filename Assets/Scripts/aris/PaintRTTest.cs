@@ -78,7 +78,7 @@ public class PaintRTTest : MonoBehaviour
         }
     }
 
-    public void DrawAtUV(Vector2 uv)
+    public void DrawAtUV(Vector2 uv, int userId = -1)
     {
         float deg = Random.Range(-paintRotationMinMax, paintRotationMinMax);
         float rot = deg * Mathf.Deg2Rad;
@@ -88,21 +88,40 @@ public class PaintRTTest : MonoBehaviour
         Texture2D footMask;
         Texture2D footNormal;
 
-        if (user == PaintUser.UserA)
+        if(userId == -1)
         {
-            col = A_paintColor;
-            stampVar = PickVar(A_brushVars);
-            footMask = A_footMask;
-            footNormal = A_footNormal;
+            if (user == PaintUser.UserA)
+            {
+                col = A_paintColor;
+                stampVar = PickVar(A_brushVars);
+                footMask = A_footMask;
+                footNormal = A_footNormal;
+            }
+            else
+            {
+                col = B_paintColor;
+                stampVar = PickVar(B_brushVars);
+                footMask = B_footMask;
+                footNormal = B_footNormal;
+            }            
         }
         else
         {
-            col = B_paintColor;
-            stampVar = PickVar(B_brushVars);
-            footMask = B_footMask;
-            footNormal = B_footNormal;
+            if(userId == 0)
+            {
+                col = A_paintColor;
+                stampVar = PickVar(A_brushVars);
+                footMask = A_footMask;
+                footNormal = A_footNormal;
+            }
+            else
+            {
+                col = B_paintColor;
+                stampVar = PickVar(B_brushVars);
+                footMask = B_footMask;
+                footNormal = B_footNormal;
+            }
         }
-
         // 1) Color/Mask stamp (foot + splatter)
         if (stampVar != null)
         {

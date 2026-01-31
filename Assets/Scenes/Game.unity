@@ -480,8 +480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TextureDiscriminator
   playerColor1: {r: 1, g: 0, b: 0, a: 0}
   playerColor2: {r: 0, g: 0, b: 1, a: 0}
-  canvas: {fileID: 0}
-  TestImgae: {fileID: 2800000, guid: fc375bfa00addb34d8aa203d34b6fbfa, type: 3}
+  canvas: {fileID: 8400000, guid: 88aa43d875ac84656b7325f7c768674e, type: 2}
   computeShader: {fileID: 7200000, guid: d6704a7d8314b7a4db27fbb6d3c086be, type: 3}
 --- !u!4 &347593606
 Transform:
@@ -1297,8 +1296,8 @@ Transform:
   m_GameObject: {fileID: 1694331986}
   serializedVersion: 2
   m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
-  m_LocalPosition: {x: 0, y: 0.62, z: 9.18}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalPosition: {x: 0, y: 1.5, z: 22.2}
+  m_LocalScale: {x: 25, y: 25, z: 25}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1419095209}

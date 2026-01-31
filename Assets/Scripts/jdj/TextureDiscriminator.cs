@@ -8,7 +8,6 @@ public class TextureDiscriminator : MonoBehaviour
     public Color playerColor2;
 
     public RenderTexture canvas;
-    public Texture2D TestImgae;
 
     [SerializeField]
     private ComputeShader computeShader;
@@ -21,7 +20,7 @@ public class TextureDiscriminator : MonoBehaviour
         _kernelHandle = computeShader.FindKernel("CSMain");
         _computeShaderBuffer_player1 = new ComputeBuffer(1, sizeof(int));
         _computeShaderBuffer_player2 = new ComputeBuffer(1, sizeof(int));
-        computeShader.SetTexture(_kernelHandle, "inputTexture", TestImgae);
+        computeShader.SetTexture(_kernelHandle, "inputTexture", canvas);
         computeShader.SetBuffer(_kernelHandle, "Player1outputInt", _computeShaderBuffer_player1);
         computeShader.SetBuffer(_kernelHandle, "Player2outputInt", _computeShaderBuffer_player2);
         computeShader.SetVector("PlayerColor1", playerColor1);
@@ -55,11 +54,11 @@ public class TextureDiscriminator : MonoBehaviour
         int[] playerOutput2 = new int[1];
         _computeShaderBuffer_player1.SetData(playerOutput1);
         _computeShaderBuffer_player2.SetData(playerOutput2);
-        computeShader.Dispatch(_kernelHandle, TestImgae.width / 8, TestImgae.height / 8, 1);
+        computeShader.Dispatch(_kernelHandle, canvas.width / 8, canvas.height / 8, 1);
         _computeShaderBuffer_player1.GetData(playerOutput1);
         _computeShaderBuffer_player2.GetData(playerOutput2);
 
-        float totalPixels = TestImgae.width * TestImgae.height;
+        float totalPixels = canvas.width * canvas.height;
         float player1Percentage = playerOutput1[0] / totalPixels;
         float player2Percentage = playerOutput2[0] / totalPixels;
 

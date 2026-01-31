@@ -63,7 +63,7 @@ public class InputController : MonoBehaviour
         
         Ray ray = Camera.main.ViewportPointToRay(Camera.main.WorldToViewportPoint(_reticle.transform.position));
         // 0 is temp id for test. replcae this with actual player id later
-        if(Aimer.Aimers != null && Aimer.Aimers.ContainsKey(0) && Physics.Raycast(ray, out RaycastHit hit, 100f, Aimer.Aimers[0].planeLayer))
+        if(Aimer.Aimers != null && Aimer.Aimers.ContainsKey(0) && Physics.Raycast(ray, out RaycastHit hit, 1000f, Aimer.Aimers[0].planeLayer))
         {
             Aimer.Aimers[0].ShootBullet(hit.point, releasedForce, 0);
         }
