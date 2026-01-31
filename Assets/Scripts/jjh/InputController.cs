@@ -23,6 +23,12 @@ public class InputController : MonoBehaviour
 
     public ShootingData ShootingData;
 
+    Player player;
+
+    private void Awake() {
+        player = GetComponent<Player>();
+    }
+
     void LateUpdate()
     {
         // 트리거 값 버퍼에 저장 (순환)
@@ -74,7 +80,7 @@ public class InputController : MonoBehaviour
         // 0 is temp id for test. replcae this with actual player id later
         if(Aimer.Aimers != null && Aimer.Aimers.ContainsKey(0) && Physics.Raycast(ray, out RaycastHit hit, 1000f, Aimer.Aimers[0].planeLayer))
         {
-            Aimer.Aimers[0].ShootBullet(hit.point, releasedForce, 0);
+            Aimer.Aimers[player.PlayerID].ShootBullet(hit.point, releasedForce, 0);
         }
     }
 

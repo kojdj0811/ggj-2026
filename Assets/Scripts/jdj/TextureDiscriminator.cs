@@ -19,6 +19,17 @@ public class TextureDiscriminator : MonoBehaviour
 
     public void Initialize()
     {
+        ColorUtility.TryParseHtmlString(
+            GameManager.Instance.ColorDataSO.GetColorCodeByIndex(GameManager.Instance.Players[0].ColorID),
+            out playerColor1
+        );
+
+        ColorUtility.TryParseHtmlString(
+            GameManager.Instance.ColorDataSO.GetColorCodeByIndex(GameManager.Instance.Players[1].ColorID),
+            out playerColor2
+        );
+
+
         _kernelHandle = computeShader.FindKernel("CSMain");
         _computeShaderBuffer_player1 = new ComputeBuffer(1, sizeof(int));
         _computeShaderBuffer_player2 = new ComputeBuffer(1, sizeof(int));

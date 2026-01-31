@@ -154,3 +154,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   selfDestroyHight: -40
+  material: {fileID: 2100000, guid: ef0d560c34b3ba84788bb3e285720f60, type: 2}

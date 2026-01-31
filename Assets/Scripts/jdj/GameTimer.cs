@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameTimer : MonoBehaviour
 {
     public static (float, float) playerScores = (0f, 0f);
 
+    public Image timerFillImage;
+    public SpriteRenderer portraitRenderer;
     public float gameDuration = 30f;
     public GameObject gameOverUI;
     public static bool TimeRemained;
@@ -20,6 +23,7 @@ public class GameTimer : MonoBehaviour
     void Update()
     {
         bool currentTimeRemained = (Time.timeSinceLevelLoad - startTime) < gameDuration;
+        timerFillImage.fillAmount = (Time.timeSinceLevelLoad - startTime) / gameDuration;
         if(currentTimeRemained == false && TimeRemained == true)
         {
             OnGameOver();

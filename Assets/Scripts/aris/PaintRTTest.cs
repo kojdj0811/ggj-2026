@@ -38,6 +38,16 @@ public class PaintRTTest : MonoBehaviour
     {
         if (Instance != null) { Destroy(gameObject); return; }
         Instance = this;
+
+        ColorUtility.TryParseHtmlString(
+            GameManager.Instance.ColorDataSO.GetColorCodeByIndex(GameManager.Instance.Players[0].ColorID),
+            out A_paintColor
+        );
+
+        ColorUtility.TryParseHtmlString(
+            GameManager.Instance.ColorDataSO.GetColorCodeByIndex(GameManager.Instance.Players[1].ColorID),
+            out B_paintColor
+        );
     }
 
     void Start()

@@ -53,8 +53,16 @@ public class Aimer : MonoBehaviour
         transform.LookAt(arrivalPoint);
         float force = GetForceToArrivalPoint(shootAngleTransform.forward, arrivalPoint - planeTransform.forward * 0.5f);
 
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-        Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+        GameObject bulletGo = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        Bullet bullet = bulletGo.GetComponent<Bullet>();
+
+        ColorUtility.TryParseHtmlString(
+            GameManager.Instance.ColorDataSO.GetColorCodeByIndex(GameManager.Instance.Players[aimerId].ColorID),
+            out Color color
+        );
+        bullet.material.SetColor("_BaseColor", color);
+
+        Rigidbody bulletRb = bulletGo.GetComponent<Rigidbody>();
         bulletRb.position = transform.position;
         bulletRb.linearVelocity = shootAngleTransform.forward * force * forceMultiplier;
     }

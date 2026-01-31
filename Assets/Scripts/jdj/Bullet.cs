@@ -4,6 +4,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float selfDestroyHight = -40f;
+    public Material material;
+
     void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.layer == LayerMask.NameToLayer("Canvas"))
