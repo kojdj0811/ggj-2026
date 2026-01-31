@@ -3,6 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
 using Cysharp.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 
 public class UIManager : Singleton<UIManager>
@@ -12,6 +13,7 @@ public class UIManager : Singleton<UIManager>
 
     public Transform Canvas;
     public TextMeshProUGUI CountdownText;
+    public GameObject VSLogo;
     [SerializeField]
     private float maxCountdownTime = 3f; // 인스펙터에서 설정 가능
 
@@ -49,5 +51,7 @@ public class UIManager : Singleton<UIManager>
         }
         if (CountdownText != null)
             CountdownText.text = "GO!";
+
+            SceneManager.LoadScene("Game");
     }
 }

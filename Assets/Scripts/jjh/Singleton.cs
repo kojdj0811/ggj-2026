@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : Singleton<T>
 {
+    public bool IsDontDestroyOnLoad = false;
+
     public static T Instance
     {
         get;
@@ -17,7 +19,10 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
         }
 
         Instance = (T)this;
-        //DontDestroyOnLoad(gameObject);
+        if (IsDontDestroyOnLoad)
+        {
+            DontDestroyOnLoad(gameObject);
+        }
         InternalAwake();
     }
 

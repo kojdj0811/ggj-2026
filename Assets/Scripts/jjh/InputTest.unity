@@ -1829,6 +1829,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3063b504ea2874ce48e08bd012cbe486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  IsDontDestroyOnLoad: 0
   Player1Panel: {fileID: 470492136}
   Player2Panel: {fileID: 1674738730}
   Canvas: {fileID: 2094470957}
@@ -3470,6 +3471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 596dae7bea8d449658b62b8d668b384c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  IsDontDestroyOnLoad: 1
   Players: []
 --- !u!4 &1185015272
 Transform:
