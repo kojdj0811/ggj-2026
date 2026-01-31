@@ -1,3 +1,5 @@
+
+
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -20,6 +22,13 @@ public class UIManager : Singleton<UIManager>
     private bool _isPlayer1Ready = false;
     private bool _isPlayer2Ready = false;
 
+    [SerializeField]
+    private AudioSource _audioSource;
+    [Header("UI Sound Clips")]
+    public AudioClip ColorSwitchClip;
+    public AudioClip ColorSelectClip;
+    public AudioClip CountDownClip;
+
     public void PlayerReady(int playerId)
     {
         if (playerId == 0)
@@ -34,6 +43,7 @@ public class UIManager : Singleton<UIManager>
         if (_isPlayer1Ready && _isPlayer2Ready)
         {
             // 두 플레이어가 준비되었을 때의 로직
+            PlayUISound(CountDownClip);
             CountdownAsync().Forget();
         }
     }
@@ -42,6 +52,7 @@ public class UIManager : Singleton<UIManager>
     public async UniTask CountdownAsync()
     {
         float time = maxCountdownTime;
+
         while (time > 0f)
         {
             if (CountdownText != null)
@@ -52,6 +63,14 @@ public class UIManager : Singleton<UIManager>
         if (CountdownText != null)
             CountdownText.text = "GO!";
 
-            SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Game");
+    }
+
+    public void PlayUISound(AudioClip clip)
+    {
+        if (_audioSource != null && clip != null)
+        {
+            _audioSource.PlayOneShot(clip);
+        }
     }
 }

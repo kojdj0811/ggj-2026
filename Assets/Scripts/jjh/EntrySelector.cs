@@ -90,6 +90,7 @@ public class EntrySelector : MonoBehaviour
         if (_currentHitToggle != null)
         {
             _currentHitToggle.isOn = true;
+            UIManager.Instance.PlayUISound(UIManager.Instance.ColorSwitchClip);
             Debug.Log($"Toggle Selected: {_currentHitToggle.gameObject.name}");
         }
     }

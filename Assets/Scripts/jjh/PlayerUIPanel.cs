@@ -31,6 +31,8 @@ public class PlayerUIPanel : MonoBehaviour
 
     public void DeactivateToggles(int playerId)
     {
+        UIManager.Instance.PlayUISound(UIManager.Instance.ColorSelectClip);
+
         int start = playerId == 0 ? 0 : 7;
         int end = playerId == 0 ? 6 : 13;
         for (int i = start; i <= end && i < _colorToggles.Length; i++)
