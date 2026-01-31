@@ -42,10 +42,14 @@ public class PlayerUIPanel : MonoBehaviour
         if (colorIndex <= 6)
         {
             GameManager.Instance.Players[0].SelectColor(colorIndex);
+            // 선택된 색상에 해당하는 캐릭터 스프라이트 업데이트
+            UpdateCharacterSprite(colorIndex);
         }
         else
         {
             GameManager.Instance.Players[1].SelectColor(colorIndex);
+            // 선택된 색상에 해당하는 캐릭터 스프라이트 업데이트
+            UpdateCharacterSprite(colorIndex);
         }
 
         // 선택된 색상에 해당하는 캐릭터 스프라이트 업데이트
