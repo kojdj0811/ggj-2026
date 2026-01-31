@@ -14,8 +14,11 @@ public class PlayerUIPanel : MonoBehaviour
 
     private void Awake()
     {
-        foreach (var toggle in _colorToggles)
+        int start = PlayerID == 0 ? 0 : 7;
+        int end = PlayerID == 0 ? 6 : 13;
+        for (int i = start; i <= end && i < _colorToggles.Length; i++)
         {
+            var toggle = _colorToggles[i];
             toggle.onValueChanged.AddListener((isOn) =>
             {
                 if (isOn)
