@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameTimer : MonoBehaviour
@@ -8,6 +9,7 @@ public class GameTimer : MonoBehaviour
 
     public Image timerFillImage;
     public SpriteRenderer portraitRenderer;
+    public SpriteRenderer backPortraitRenderer;
     public float gameDuration = 30f;
     public TMP_Text gameOverUI;
     public static bool TimeRemained;
@@ -55,6 +57,7 @@ public class GameTimer : MonoBehaviour
             );
             gameOverUI.color = color;
             portraitRenderer.sprite = GameManager.Instance.ColorDataSO.GetCharacterSpriteByIndex(GameManager.Instance.Players[0].ColorID);
+            backPortraitRenderer.sprite = GameManager.Instance.ColorDataSO.GetCharacterSpriteByIndex(GameManager.Instance.Players[1].ColorID + 14);
         }
         else
         {
@@ -64,8 +67,14 @@ public class GameTimer : MonoBehaviour
             );
             gameOverUI.color = color;
             portraitRenderer.sprite = GameManager.Instance.ColorDataSO.GetCharacterSpriteByIndex(GameManager.Instance.Players[1].ColorID + 14);
+            backPortraitRenderer.sprite = GameManager.Instance.ColorDataSO.GetCharacterSpriteByIndex(GameManager.Instance.Players[0].ColorID);
         }
 
         Debug.LogWarning($"Game Over! Player 1 Score: {playerScores.Item1}, Player 2 Score: {playerScores.Item2}");
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("Entry");
     }
 }
