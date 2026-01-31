@@ -18,6 +18,8 @@ public class InputController : MonoBehaviour
     private Vector2 _reticleInputValue;
     private float _triggerInputValue;
     private float _prevTriggerInputValue;
+    private readonly float[] _triggerValueBuffer = new float[10];
+    private int _triggerValueBufferIndex = 0;
 
     public ShootingData ShootingData;
 
@@ -32,9 +34,20 @@ public class InputController : MonoBehaviour
     {
         Debug.Log("Trigger Input Value: " + _triggerInputValue);
 
+        // 트리거 값 버퍼에 저장 (순환)
+        _triggerValueBuffer[_triggerValueBufferIndex] = _triggerInputValue;
+        _triggerValueBufferIndex = (_triggerValueBufferIndex + 1) % _triggerValueBuffer.Length;
+
+        // 트리거가 0이 되는 순간, 최근 10프레임 중 최대값을 힘으로 사용
         if (_prevTriggerInputValue > 0f && _triggerInputValue == 0f)
         {
-            OnTriggerReleased(_prevTriggerInputValue);
+            float maxForce = 0f;
+            for (int i = 0; i < _triggerValueBuffer.Length; i++)
+            {
+                if (_triggerValueBuffer[i] > maxForce)
+                    maxForce = _triggerValueBuffer[i];
+            }
+            OnTriggerReleased(maxForce);
         }
         _prevTriggerInputValue = _triggerInputValue;
 
