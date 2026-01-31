@@ -9,7 +9,8 @@ public class PaintRTTest : MonoBehaviour
     public Texture2D A_brushTex; // 발바닥 텍스처
     public Texture2D B_brushTex; // 발바닥 텍스처
     private Texture2D _brushTex; // 발바닥 텍스처
-    //public Color paintColor = Color.red; // User A = red
+    public Color A_paintColor = Color.red; // User A = red
+    public Color B_paintColor = Color.blue; // User A = red
     public float brushSize = 0.2f;
     private RenderTexture targetTexture;
 
@@ -36,13 +37,23 @@ public class PaintRTTest : MonoBehaviour
 
     void Start()
     {
-        drawMat = new Material(Shader.Find("Hidden/RTDraw"));
+       drawMat = new Material(Shader.Find("Hidden/RTDraw"));
 
-        // 렌더 텍스처를 검은색/투명으로 초기화
-        RenderTexture.active = targetTexture;
-        //GL.Clear(true, true, Color.clear); // 투명
-        GL.Clear(true, true, Color.white); // 검은색
-        RenderTexture.active = null;
+        // paintRT가 인스펙터에서 할당되어 있다고 가정
+        if (paintRT == null)
+        {
+            Debug.LogError("paintRT is null");
+            return;
+        }
+
+        if (!paintRT.IsCreated())
+            paintRT.Create();
+
+        // 렌더 텍스처를 흰색으로 초기화
+        var prev = RenderTexture.active;
+        RenderTexture.active = paintRT;
+        GL.Clear(true, true, Color.white);   // (1,1,1,1)
+        RenderTexture.active = prev;
     }
 
     void Update()
@@ -69,11 +80,11 @@ public class PaintRTTest : MonoBehaviour
         Color channelColor = Color.black;
 
         if (user == PaintUser.UserA){
-            channelColor = Color.red;   // R 채널
+            channelColor = A_paintColor;   // R 채널
             _brushTex = A_brushTex;
         }
         else{
-            channelColor = Color.blue;  // B 채널
+            channelColor = B_paintColor;  // B 채널
             _brushTex = B_brushTex;
         }
 
