@@ -166,7 +166,7 @@ public class ObjectClipboardWindow : EditorWindow
                     description = EditorPrefs.GetString(keyDescription);
                     if (guid == "") // 씬오브젝트의 경우
                     {
-                        Object idObj = EditorUtility.InstanceIDToObject(insId);
+                        Object idObj = EditorUtility.EntityIdToObject(insId);
                         m_objects.Add(new ClippedObject(idObj, locked, description));
                     }
                     else // 프로젝트 오브트의 경우

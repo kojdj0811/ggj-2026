@@ -1,12 +1,21 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Aimer : MonoBehaviour
 {
+
+    public static Dictionary<int, Aimer> Aimers = new Dictionary<int, Aimer>();
+    public int aimerId;
+
     public GameObject bulletPrefab;
     public Transform shootAngleTransform;
     public Transform planeTransform;
     public LayerMask planeLayer;
 
+
+    private void Awake() {
+        Aimers[aimerId] = this;
+    }
 
     void Update()
     {
