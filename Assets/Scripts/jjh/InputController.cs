@@ -12,8 +12,6 @@ public class ShootingData
 public class InputController : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _canvas;
-    [SerializeField]
     private GameObject _reticle;
     private Vector2 _reticleInputValue;
     private float _triggerInputValue;
@@ -22,13 +20,6 @@ public class InputController : MonoBehaviour
     private int _triggerValueBufferIndex = 0;
 
     public ShootingData ShootingData;
-
-    void Awake()
-    {
-        Debug.Log("New Player Joined");
-        _canvas = GameManager.Instance.Canvas;
-        GameManager.Instance.Players.Add(this);
-    }
 
     void Update()
     {
@@ -51,38 +42,20 @@ public class InputController : MonoBehaviour
         }
         _prevTriggerInputValue = _triggerInputValue;
 
-        _reticle.transform.position += new Vector3(_reticleInputValue.x, _reticleInputValue.y, 0) * Time.deltaTime;
 
-        Vector3 canvasCenter = _canvas.transform.position;
-        Vector3 canvasScale = _canvas.transform.localScale;
-        Vector3 reticlePos = _reticle.transform.position;
+        Vector3 currentReticlePos = _reticle.transform.position;
+        Vector3 nextReticlePos = currentReticlePos + new Vector3(_reticleInputValue.x, _reticleInputValue.y, 0) * Time.deltaTime;
 
-        float reticleHalfWidth = 0f;
-        float reticleHalfHeight = 0f;
-        var sr = _reticle.GetComponent<SpriteRenderer>();
-        if (sr != null)
-        {
-            reticleHalfWidth = sr.bounds.size.x * 0.5f;
-            reticleHalfHeight = sr.bounds.size.y * 0.5f;
-        }
-        else
-        {
-            var renderer = _reticle.GetComponent<Renderer>();
-            if (renderer != null)
-            {
-                reticleHalfWidth = renderer.bounds.size.x * 0.5f;
-                reticleHalfHeight = renderer.bounds.size.y * 0.5f;
-            }
-        }
-
-        float minX = canvasCenter.x - canvasScale.x * 0.5f + reticleHalfWidth;
-        float maxX = canvasCenter.x + canvasScale.x * 0.5f - reticleHalfWidth;
-        float minY = canvasCenter.y - canvasScale.y * 0.5f + reticleHalfHeight;
-        float maxY = canvasCenter.y + canvasScale.y * 0.5f - reticleHalfHeight;
-
-        reticlePos.x = Mathf.Clamp(reticlePos.x, minX, maxX);
-        reticlePos.y = Mathf.Clamp(reticlePos.y, minY, maxY);
-        _reticle.transform.position = reticlePos;
+        Vector3 currentReticlePosV = Camera.main.WorldToViewportPoint(currentReticlePos);
+        Vector3 nextReticlePosV = Camera.main.WorldToViewportPoint(nextReticlePos);
+        nextReticlePos.x = nextReticlePosV.x > 1f ? currentReticlePosV.x :
+                             nextReticlePosV.x < 0f ? currentReticlePosV.x :
+                             nextReticlePos.x;
+        nextReticlePos.y = nextReticlePosV.y > 1f ? currentReticlePosV.y :
+                             nextReticlePosV.y < 0f ? currentReticlePosV.y :
+                             nextReticlePos.y;
+    
+        _reticle.transform.position = nextReticlePos;
     }
 
     private void OnTriggerReleased(float releasedForce)
@@ -92,7 +65,14 @@ public class InputController : MonoBehaviour
         ShootingData.ReticlePosition = _reticle.transform.position;
         ShootingData.TriggerValue = releasedForce;
         
-        //이 부분에 실제로 발사하는 쪽에 데이터 전달 후 데이터 초기화 필요
+        Ray ray = Camera.main.ViewportPointToRay(Camera.main.WorldToViewportPoint(_reticle.transform.position));
+        if(Physics.Raycast(ray, out RaycastHit hit, 100f, LayerMask.GetMask("Canvas")))
+        {
+            // 0 is temp id for test. replcae this with actual player id later
+            Aimer.Aimers[0].transform.LookAt(hit.point);
+            Aimer.Aimers[0].ShootBullet(hit.point, releasedForce, 0);
+            
+        }
     }
 
     private void OnStickInput(InputValue value)
