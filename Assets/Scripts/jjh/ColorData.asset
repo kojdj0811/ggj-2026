@@ -14,43 +14,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ColorDataSO
   colorDatas:
   - Index: 0
-    ColorCode: d4592a
+    ColorCode: '#d4592a'
     CharacterSprite: {fileID: 21300000, guid: 85bceea2caf874fbab5bf3ed1acbb1b0, type: 3}
   - Index: 1
-    ColorCode: e07830
+    ColorCode: '#e07830'
     CharacterSprite: {fileID: 21300000, guid: 44f7beaa2f9554a9293ce7351875e5d0, type: 3}
   - Index: 2
-    ColorCode: e8943a
+    ColorCode: '#e8943a'
     CharacterSprite: {fileID: 21300000, guid: 3cba6b3c6973a4dc1a6a5ac396bbacb6, type: 3}
   - Index: 3
-    ColorCode: e8c84a
+    ColorCode: '#e8c84a'
     CharacterSprite: {fileID: 21300000, guid: 04be473ef3cd441579dc7d3670ce7aa7, type: 3}
   - Index: 4
-    ColorCode: c0c040
+    ColorCode: '#c0c040'
     CharacterSprite: {fileID: 21300000, guid: 71ffd79c0512749b7b288fc79b341f5a, type: 3}
   - Index: 5
-    ColorCode: a8b530
+    ColorCode: '#a8b530'
     CharacterSprite: {fileID: 21300000, guid: c8d970075c1fb4c1196ea49024e4592a, type: 3}
   - Index: 6
-    ColorCode: 7a9a28
+    ColorCode: '#7a9a28'
     CharacterSprite: {fileID: 21300000, guid: b21942e03a7544291ba0403bd46e6623, type: 3}
   - Index: 7
-    ColorCode: e8447a
+    ColorCode: '#e8447a'
     CharacterSprite: {fileID: 21300000, guid: faf094cd89dfb4af7a9f0e6666662b94, type: 3}
   - Index: 8
-    ColorCode: b0308a
+    ColorCode: '#b0308a'
     CharacterSprite: {fileID: 21300000, guid: 7bb490ea176054b8bbe9d21ec79b867e, type: 3}
   - Index: 9
-    ColorCode: 8828a8
+    ColorCode: '#8828a8'
     CharacterSprite: {fileID: 21300000, guid: fc51abfe6ff634567bc810f6ad559d4d, type: 3}
   - Index: 10
-    ColorCode: 5020b0
+    ColorCode: '#5020b0'
     CharacterSprite: {fileID: 21300000, guid: 6f265e65521e84b4dab302e0b45a8afe, type: 3}
   - Index: 11
-    ColorCode: 3818a0
+    ColorCode: '#3818a0'
     CharacterSprite: {fileID: 21300000, guid: 61db5a15c73dc40d0974bb581a0cc1c0, type: 3}
   - Index: 12
-    ColorCode: 6a80d0
+    ColorCode: '#6a80d0'
     CharacterSprite: {fileID: 21300000, guid: d1c13df0a15fc48b6b4d65b79b9e6e74, type: 3}
   - Index: 13
     ColorCode: 78c8e0
