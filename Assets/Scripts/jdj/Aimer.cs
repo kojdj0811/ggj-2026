@@ -5,15 +5,14 @@ public class Aimer : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform shootAngleTransform;
     public Transform planeTransform;
-    public LayerMask considerPlaneLayer;
-    public LayerMask realPlaneLayer;
+    public LayerMask planeLayer;
 
 
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Return))
         {
-            if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 100f, realPlaneLayer))
+            if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 100f, planeLayer))
             {
                 ShootBullet(hit.point, 1f, 0);
             }
@@ -22,7 +21,7 @@ public class Aimer : MonoBehaviour
 
     public void ShootBullet(Vector3 arrivalPoint, float triggerValue, int userId)
     {
-        float force = GetForceToArrivalPoint(shootAngleTransform.forward, arrivalPoint + planeTransform.up * 0.5f);
+        float force = GetForceToArrivalPoint(shootAngleTransform.forward, arrivalPoint - planeTransform.up * 0.5f);
 
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
@@ -97,13 +96,13 @@ public class Aimer : MonoBehaviour
     {
         Gizmos.color = Color.red;
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 100f, realPlaneLayer))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 100f, planeLayer))
         {
             Gizmos.DrawLine(transform.position, hit.point);
             Gizmos.DrawSphere(hit.point, 0.1f);
 
             Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(hit.point + planeTransform.up * 0.5f, 0.1f);
+            Gizmos.DrawSphere(hit.point - planeTransform.up * 0.5f, 0.1f);
         }
 
     }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1790343016520679744}
   - component: {fileID: 1866948829160661154}
   - component: {fileID: 4510234901529264031}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: PfBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
