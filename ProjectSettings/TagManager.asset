@@ -6,6 +6,7 @@ TagManager:
   tags:
   - BulletL
   - BulletR
+  - Bomb
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - FakeCanvas
   - 
   - 
-  - 
+  - Item
   - 
   - 
   - 
