@@ -12,6 +12,8 @@ public class ShootingData
 public class InputController : MonoBehaviour
 {
     [SerializeField]
+    private EntrySelector _entrySelector;
+    [SerializeField]
     private GameObject _reticle;
     private Vector2 _reticleInputValue;
     private float _triggerInputValue;
@@ -60,6 +62,13 @@ public class InputController : MonoBehaviour
         ShootingData.Owner = this;
         ShootingData.ReticlePosition = _reticle.transform.position;
         ShootingData.TriggerValue = releasedForce;
+
+                // 현재 레이캐스트에 맞고있는 Toggle/버튼 처리
+        if (_entrySelector != null)
+        {
+            _entrySelector.ClickCurrentButton();
+            _entrySelector.SelectCurrentToggle();
+        }
         
         Ray ray = Camera.main.ViewportPointToRay(Camera.main.WorldToViewportPoint(_reticle.transform.position));
         // 0 is temp id for test. replcae this with actual player id later
@@ -73,26 +82,6 @@ public class InputController : MonoBehaviour
     {
         _reticleInputValue = value.Get<Vector2>();
     }
-
-    // private void OnDpadUp(InputValue value)
-    // {
-    //     _reticleInput.y = value.isPressed ? 1 : 0;
-    // }
-
-    // private void OnDpadDown(InputValue value)
-    // {
-    //     _reticleInput.y = value.isPressed ? -1 : 0;
-    // }
-
-    // private void OnDpadLeft(InputValue value)
-    // {
-    //     _reticleInput.x = value.isPressed ? -1 : 0;
-    // }
-
-    // private void OnDpadRight(InputValue value)
-    // {
-    //     _reticleInput.x = value.isPressed ? 1 : 0;
-    // }
 
     private void OnTriggerInput(InputValue value)
     {

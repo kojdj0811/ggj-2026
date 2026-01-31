@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1137209604128949885}
   - component: {fileID: 2658733205492363820}
   - component: {fileID: 5160586152303281251}
+  - component: {fileID: 5375339759624625350}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -46,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f167bad3c7c094d92818a08a969415a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputManager
+  _entrySelector: {fileID: 1444051495981787292}
   _reticle: {fileID: 8143844124109818379}
   ShootingData:
     Owner: {fileID: 0}
@@ -81,6 +83,22 @@ MonoBehaviour:
   m_DefaultActionMap: GamePad
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &5375339759624625350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6947839231568699778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ca41d2e369549ff87d7ab9161ad025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player
+  PlayerID: 0
+  ColorID: 0
+  PlayerUIObject: []
+  InputController: {fileID: 2658733205492363820}
 --- !u!1 &8143844124109818379
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,6 +109,7 @@ GameObject:
   m_Component:
   - component: {fileID: 878466580102465546}
   - component: {fileID: 276942995443813142}
+  - component: {fileID: 1444051495981787292}
   m_Layer: 0
   m_Name: Reticle
   m_TagString: Untagged
@@ -160,7 +179,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_MaskInteraction: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -172,3 +191,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1444051495981787292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8143844124109818379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa5eb58d824e64f79a0250582b537cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntrySelector
+  _inputController: {fileID: 2658733205492363820}
+  eventSystem: {fileID: 0}
+  graphicRaycaster: {fileID: 0}

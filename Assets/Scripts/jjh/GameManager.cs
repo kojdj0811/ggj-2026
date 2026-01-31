@@ -21,13 +21,13 @@ public class GameManager : Singleton<GameManager>
     {
         Players.Add(player);
 
-        // if (Players.Count == 1)
-        // {
-        //     UIManager.Instance.Player1Panel.gameObject.SetActive(true);
-        // }
-        // else if (Players.Count == 2)
-        // {
-        //     UIManager.Instance.Player2Panel.gameObject.SetActive(true);
-        // }
+        if (Players.Count == 1)
+        {
+            UIManager.Instance.Player1Panel.gameObject.SetActive(true);
+        }
+        else if (Players.Count == 2)
+        {
+            UIManager.Instance.Player2Panel.gameObject.SetActive(true);
+        }
     }
 }

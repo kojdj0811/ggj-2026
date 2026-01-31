@@ -12,23 +12,10 @@ public class Player : MonoBehaviour
     {
         Debug.Log("New Player Joined");
 
-        // if (GameManager.Instance.Players.Count == 0)
-        // {
-        //     _myPlayerUI = PlayerUIObject[0].transform;
-        //     PlayerUIObject[0].SetActive(true);
-        //     PlayerID = 0;
-        // }
-        // else
-        // {
-        //     _myPlayerUI = PlayerUIObject[1].transform;
-        //     PlayerUIObject[1].SetActive(true);
-        //     PlayerID = 1;
-        // }
-        
-
         //_myPlayerUI.SetParent(UIManager.Instance.Canvas.transform);
 
         GameManager.Instance.OnJoinedPlayer(this);
+        PlayerID = GameManager.Instance.Players.Count - 1;
 
         if (InputController == null)
         {
