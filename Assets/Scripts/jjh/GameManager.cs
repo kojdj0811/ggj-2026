@@ -14,7 +14,7 @@ public class GameManager : Singleton<GameManager>
     public AudioClip BGM;
     public AudioClip EndingCutClip;
     public AudioClip EndingBGM;
-    public AudioClip ItemGainClip;
+    public AudioClip BombClip;
     public AudioClip ShootClip;
     public AudioClip HitClip;
 
@@ -58,5 +58,14 @@ public class GameManager : Singleton<GameManager>
         {
             _audioSource.PlayOneShot(clip);
         }
+    }
+
+    public void RemoveAllPlayersData()
+    {
+        foreach (var player in Players)
+        {
+            Destroy(player.gameObject);
+        }
+        Players.Clear();
     }
 }
