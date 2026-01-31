@@ -12,6 +12,7 @@ public class PaintRTTest : MonoBehaviour
     public Color A_paintColor = Color.red; // User A = red
     public Color B_paintColor = Color.blue; // User A = red
     public float brushSize = 0.2f;
+    private float rot = 0.0f;
     private RenderTexture targetTexture;
 
     Material drawMat;
@@ -58,13 +59,12 @@ public class PaintRTTest : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                Vector2 uv = hit.textureCoord;
-                DrawAtUV(uv);
+                DrawAtUV(hit.textureCoord);
             }
         }
     }
@@ -72,8 +72,6 @@ public class PaintRTTest : MonoBehaviour
     
     public void DrawAtUV(Vector2 uv)
     {
-        //drawMat.SetTexture("_BrushTex", A_brushTex);
-        //drawMat.SetColor("_Color", paintColor);
         drawMat.SetVector("_UV", uv);
         drawMat.SetFloat("_Size", brushSize);
 
@@ -90,6 +88,9 @@ public class PaintRTTest : MonoBehaviour
 
         drawMat.SetColor("_Color", channelColor);
         drawMat.SetTexture("_BrushTex", _brushTex);
+        float deg = Random.Range(-15f, 15f);
+        float rot = deg * Mathf.Deg2Rad;
+        drawMat.SetFloat("_Rotation", rot);
 
 
         RenderTexture temp = RenderTexture.GetTemporary(

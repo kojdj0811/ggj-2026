@@ -7,6 +7,7 @@ Shader "Hidden/RTDraw"
         _Color ("Color", Color) = (1,0,0,1)
         _UV ("UV", Vector) = (0,0,0,0)
         _Size ("Size", Float) = 0.1
+        _Rotation ("Rotation", Float) = 0
     }
 
     SubShader
@@ -33,6 +34,7 @@ Shader "Hidden/RTDraw"
             float4 _Color;
             float2 _UV;
             float _Size;
+            float _Rotation;
 
             struct Attributes
             {
@@ -61,7 +63,12 @@ Shader "Hidden/RTDraw"
                     SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
 
                 // 브러시 UV
-                float2 diff = (i.uv - _UV) / _Size + 0.5;
+                //float2 diff = (i.uv - _UV) / _Size + 0.5;
+                float2 diff = (i.uv - _UV) / _Size;       // -0.5~0.5 근처
+                float s = sin(_Rotation);
+                float c = cos(_Rotation);
+                diff = float2(diff.x * c - diff.y * s, diff.x * s + diff.y * c);
+                diff = diff + 0.5;                        // 0~1
 
                 // 브러시 범위 체크
                 if (diff.x < 0 || diff.x > 1 || diff.y < 0 || diff.y > 1)
