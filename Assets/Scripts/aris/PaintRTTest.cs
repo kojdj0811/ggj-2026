@@ -12,8 +12,7 @@ public class PaintRTTest : MonoBehaviour
     public Color A_paintColor = Color.red; // User A = red
     public Color B_paintColor = Color.blue; // User A = red
     public float brushSize = 0.2f;
-    private float rot = 0.0f;
-    private RenderTexture targetTexture;
+    public float paintRotationMinMax = 45;
 
     Material drawMat;
 
@@ -88,7 +87,7 @@ public class PaintRTTest : MonoBehaviour
 
         drawMat.SetColor("_Color", channelColor);
         drawMat.SetTexture("_BrushTex", _brushTex);
-        float deg = Random.Range(-15f, 15f);
+        float deg = Random.Range(-paintRotationMinMax, paintRotationMinMax);
         float rot = deg * Mathf.Deg2Rad;
         drawMat.SetFloat("_Rotation", rot);
 
