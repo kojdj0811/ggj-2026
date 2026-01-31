@@ -59,7 +59,7 @@ public class PlayerUIPanel : MonoBehaviour
             Debug.Log($"Player 1 selected color {colorIndex}");
             GameManager.Instance.Players[1].SelectColor(colorIndex);
             // 선택된 색상에 해당하는 캐릭터 스프라이트 업데이트
-            UpdateCharacterSprite(colorIndex);
+            UpdateCharacterSprite(colorIndex + 14);
         }
     }
 

@@ -36,22 +36,64 @@ MonoBehaviour:
     CharacterSprite: {fileID: 21300000, guid: b21942e03a7544291ba0403bd46e6623, type: 3}
   - Index: 7
     ColorCode: '#e8447a'
-    CharacterSprite: {fileID: 21300000, guid: da3c327b93e8a411da14948cb4503f62, type: 3}
+    CharacterSprite: {fileID: 21300000, guid: d7182ad65772f4d8596c30e0cc054409, type: 3}
   - Index: 8
     ColorCode: '#b0308a'
-    CharacterSprite: {fileID: 21300000, guid: 1a7a8448c2f2e4d679f63eed3d31a838, type: 3}
+    CharacterSprite: {fileID: 21300000, guid: 85f3b57b93bf94cefb65650d0993fce6, type: 3}
   - Index: 9
     ColorCode: '#8828a8'
-    CharacterSprite: {fileID: 21300000, guid: 5d78d2675c651494cb3819c38ecd3e02, type: 3}
+    CharacterSprite: {fileID: 21300000, guid: 29cf9a1fe4cf34410ad649822a777072, type: 3}
   - Index: 10
     ColorCode: '#5020b0'
-    CharacterSprite: {fileID: 21300000, guid: dbb5147051c7d44ea81e4b2f8c82bb06, type: 3}
+    CharacterSprite: {fileID: 21300000, guid: 5c69498cfb67248d892f8f7b574107df, type: 3}
   - Index: 11
     ColorCode: '#3818a0'
-    CharacterSprite: {fileID: 21300000, guid: bdc5f5bdf284c4b35a6d1161f1e1dbb2, type: 3}
+    CharacterSprite: {fileID: 21300000, guid: f8c26f57a1de94cca8887726565811c1, type: 3}
   - Index: 12
     ColorCode: '#6a80d0'
-    CharacterSprite: {fileID: 21300000, guid: 606e4919cfc464066b9fa196fa1f3552, type: 3}
+    CharacterSprite: {fileID: 21300000, guid: e4ba0f65bdc644a8d9d57bf0de388708, type: 3}
   - Index: 13
+    ColorCode: '#78c8e0'
+    CharacterSprite: {fileID: 21300000, guid: 102b413c69ed7446a985c964f04f06a2, type: 3}
+  - Index: 14
+    ColorCode: '#d4592a'
+    CharacterSprite: {fileID: 21300000, guid: faf094cd89dfb4af7a9f0e6666662b94, type: 3}
+  - Index: 15
+    ColorCode: '#e07830'
+    CharacterSprite: {fileID: 21300000, guid: 7bb490ea176054b8bbe9d21ec79b867e, type: 3}
+  - Index: 16
+    ColorCode: '#e8943a'
+    CharacterSprite: {fileID: 21300000, guid: fc51abfe6ff634567bc810f6ad559d4d, type: 3}
+  - Index: 17
+    ColorCode: '#e8c84a'
+    CharacterSprite: {fileID: 21300000, guid: 6f265e65521e84b4dab302e0b45a8afe, type: 3}
+  - Index: 18
+    ColorCode: '#c0c040'
+    CharacterSprite: {fileID: 21300000, guid: 61db5a15c73dc40d0974bb581a0cc1c0, type: 3}
+  - Index: 19
+    ColorCode: '#a8b530'
+    CharacterSprite: {fileID: 21300000, guid: d1c13df0a15fc48b6b4d65b79b9e6e74, type: 3}
+  - Index: 20
+    ColorCode: '#7a9a28'
+    CharacterSprite: {fileID: 21300000, guid: 675b8e94d7d3c45f5a87758188a128de, type: 3}
+  - Index: 21
+    ColorCode: '#e8447a'
+    CharacterSprite: {fileID: 21300000, guid: da3c327b93e8a411da14948cb4503f62, type: 3}
+  - Index: 22
+    ColorCode: '#b0308a'
+    CharacterSprite: {fileID: 21300000, guid: 1a7a8448c2f2e4d679f63eed3d31a838, type: 3}
+  - Index: 23
+    ColorCode: '#8828a8'
+    CharacterSprite: {fileID: 21300000, guid: 5d78d2675c651494cb3819c38ecd3e02, type: 3}
+  - Index: 24
+    ColorCode: '#5020b0'
+    CharacterSprite: {fileID: 21300000, guid: dbb5147051c7d44ea81e4b2f8c82bb06, type: 3}
+  - Index: 25
+    ColorCode: '#3818a0'
+    CharacterSprite: {fileID: 21300000, guid: bdc5f5bdf284c4b35a6d1161f1e1dbb2, type: 3}
+  - Index: 26
+    ColorCode: '#6a80d0'
+    CharacterSprite: {fileID: 21300000, guid: 606e4919cfc464066b9fa196fa1f3552, type: 3}
+  - Index: 27
     ColorCode: '#78c8e0'
     CharacterSprite: {fileID: 21300000, guid: 0694e9c2eaac34e1ea12f298b45414a8, type: 3}
