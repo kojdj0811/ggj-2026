@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 public class GameManager : Singleton<GameManager>
 {
     public List<Player> Players = new List<Player>();
+    public ColorDataSO ColorDataSO;
 
     public void OnJoinedPlayer(Player player)
     {

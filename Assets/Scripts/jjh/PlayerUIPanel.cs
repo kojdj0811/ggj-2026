@@ -8,6 +8,8 @@ public class PlayerUIPanel : MonoBehaviour
 
     [SerializeField]
     private Toggle[] _colorToggles;
+    [SerializeField]
+    private Image _imageCharacter;
 
 
     private void Awake()
@@ -45,5 +47,18 @@ public class PlayerUIPanel : MonoBehaviour
         {
             GameManager.Instance.Players[1].SelectColor(colorIndex);
         }
+
+        // 선택된 색상에 해당하는 캐릭터 스프라이트 업데이트
+        UpdateCharacterSprite(colorIndex);
+    }
+
+    private void UpdateCharacterSprite(int colorIndex)
+    {
+        Sprite characterSprite = GameManager.Instance.ColorDataSO.GetCharacterSpriteByIndex(colorIndex);
+        if (characterSprite != null)
+        {
+            _imageCharacter.sprite = characterSprite;
+        }
     }
 }
+
