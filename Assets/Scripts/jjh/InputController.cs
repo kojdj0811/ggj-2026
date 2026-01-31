@@ -91,14 +91,14 @@ public class InputController : MonoBehaviour
         }
 
         // 컨트롤러 바이브레이션 (진동) - 중복 방지
-        if (Gamepad.current != null)
-        {
-            _vibrationCts?.Cancel();
-            _vibrationCts = new CancellationTokenSource();
-            float vibration = Mathf.Clamp01(releasedForce);
-            Gamepad.current.SetMotorSpeeds(0f, vibration);
-            VibrationStopAsync(_vibrationCts.Token).Forget();
-        }
+        // if (Gamepad.current != null)
+        // {
+        //     _vibrationCts?.Cancel();
+        //     _vibrationCts = new CancellationTokenSource();
+        //     float vibration = Mathf.Clamp01(releasedForce);
+        //     Gamepad.current.SetMotorSpeeds(0f, vibration);
+        //     VibrationStopAsync(_vibrationCts.Token).Forget();
+        // }
     }
 
     private async UniTaskVoid VibrationStopAsync(CancellationToken token)
