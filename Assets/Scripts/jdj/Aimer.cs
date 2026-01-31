@@ -2,12 +2,19 @@ using System.Collections.Generic;
 using Freya;
 using MyBox;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Aimer : MonoBehaviour
 {
 
     public static Dictionary<int, Aimer> Aimers = new Dictionary<int, Aimer>();
     public int aimerId;
+
+    public Image paintBucket;
+    [Range(0f, 1f)]
+    public float paintBucketFillAmount = 1f;
+    public float singleShotPaintAmount = 0.1f;
+    public float reloadPaintSpeedPerSeconds = 0.1f;
 
     public GameObject bulletPrefab;
     public Transform shootAngleTransform;
@@ -23,6 +30,14 @@ public class Aimer : MonoBehaviour
         Aimers[aimerId] = this;
     }
 
+    private void Start() {
+        ColorUtility.TryParseHtmlString(
+            GameManager.Instance.ColorDataSO.GetColorCodeByIndex(GameManager.Instance.Players[aimerId].ColorID),
+            out Color color
+        );
+        paintBucket.color = color;
+    }
+
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Return))
@@ -32,6 +47,9 @@ public class Aimer : MonoBehaviour
                 ShootBullet(hit.point, 1f, 0);
             }
         }
+
+        paintBucketFillAmount = Mathf.Clamp01(paintBucketFillAmount + reloadPaintSpeedPerSeconds * Time.deltaTime);
+        paintBucket.fillAmount = paintBucketFillAmount;
     }
 
     public void ShootBullet(Vector3 arrivalPoint, float triggerValue, int userId)
@@ -55,8 +73,17 @@ public class Aimer : MonoBehaviour
         transform.LookAt(arrivalPoint);
         float force = GetForceToArrivalPoint(shootAngleTransform.forward, arrivalPoint - planeTransform.forward * 0.5f);
 
+        float brushSizeMultiplier = paintBucketFillAmount >= singleShotPaintAmount ? 1f : paintBucketFillAmount / singleShotPaintAmount;
+        brushSizeMultiplier = Mathf.Clamp(brushSizeMultiplier, 0.3f, 1.0f);
+
+        paintBucketFillAmount = Mathf.Clamp01(paintBucketFillAmount - singleShotPaintAmount);
+        paintBucket.fillAmount = paintBucketFillAmount;
+
+
         GameObject bulletGo = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        bulletGo.transform.localScale = Vector3.one * brushSizeMultiplier;
         Bullet bullet = bulletGo.GetComponent<Bullet>();
+        bullet.brushSize = PaintRTTest.Instance.brushSize * brushSizeMultiplier;
 
         ColorUtility.TryParseHtmlString(
             GameManager.Instance.ColorDataSO.GetColorCodeByIndex(GameManager.Instance.Players[aimerId].ColorID),

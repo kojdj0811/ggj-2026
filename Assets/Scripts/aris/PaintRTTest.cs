@@ -88,11 +88,73 @@ public class PaintRTTest : MonoBehaviour
 
     public void DrawAtUV(Vector2 uv, float brushSize, int userId = -1)
     {
-        float previousBrushSize = this.brushSize;
+        float deg = Random.Range(-paintRotationMinMax, paintRotationMinMax);
+        float rot = deg * Mathf.Deg2Rad;
 
-        this.brushSize = brushSize;
-        DrawAtUV(uv, userId);
-        this.brushSize = previousBrushSize;
+        Color col;
+        Texture2D stampVar;
+        Texture2D footMask;
+        Texture2D footNormal;
+
+        if(userId == -1)
+        {
+            if (user == PaintUser.UserA)
+            {
+                col = A_paintColor;
+                stampVar = PickVar(A_brushVars);
+                footMask = A_footMask;
+                footNormal = A_footNormal;
+            }
+            else
+            {
+                col = B_paintColor;
+                stampVar = PickVar(B_brushVars);
+                footMask = B_footMask;
+                footNormal = B_footNormal;
+            }            
+        }
+        else
+        {
+            if(userId == 0)
+            {
+                col = A_paintColor;
+                stampVar = PickVar(A_brushVars);
+                footMask = A_footMask;
+                footNormal = A_footNormal;
+            }
+            else
+            {
+                col = B_paintColor;
+                stampVar = PickVar(B_brushVars);
+                footMask = B_footMask;
+                footNormal = B_footNormal;
+            }
+        }
+        // 1) Color/Mask stamp (foot + splatter)
+        if (stampVar != null)
+        {
+            drawMat.SetVector("_UV", uv);
+            drawMat.SetFloat("_Size", brushSize);
+            drawMat.SetFloat("_Rotation", rot);
+            drawMat.SetColor("_Color", col);
+            drawMat.SetTexture("_BrushTex", stampVar);
+
+            BlitStamp(paintRT, drawMat);
+        }
+
+        // 2) Normal stamp (foot only)
+        if (normalRT != null && footMask != null && footNormal != null)
+        {
+            drawNormalMat.SetVector("_UV", uv);
+            drawNormalMat.SetFloat("_Size", brushSize);
+            drawNormalMat.SetFloat("_Rotation", rot);
+            drawNormalMat.SetFloat("_Threshold", normalThreshold);
+            drawNormalMat.SetFloat("_Strength", normalStrength);
+            drawNormalMat.SetTexture("_MaskTex", footMask);
+            drawNormalMat.SetTexture("_NormalTex", footNormal);
+
+            BlitStamp(normalRT, drawNormalMat);
+        }
     }
 
 

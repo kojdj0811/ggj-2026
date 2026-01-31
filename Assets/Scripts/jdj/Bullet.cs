@@ -4,6 +4,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float selfDestroyHight = -40f;
+    public float brushSize = 0.2f;
     public Material material;
 
     void OnCollisionEnter(Collision collision)
@@ -14,7 +15,7 @@ public class Bullet : MonoBehaviour
             
             if (Physics.Raycast(transform.position, (collision.contacts[0].point - transform.position).normalized, out RaycastHit hitInfo, 1f, LayerMask.GetMask("Canvas")))
             {
-                PaintRTTest.Instance.DrawAtUV(hitInfo.textureCoord, gameObject.tag.CompareTo("BulletL") == 0 ? 0 : 1);
+                PaintRTTest.Instance.DrawAtUV(hitInfo.textureCoord, brushSize, gameObject.tag.CompareTo("BulletL") == 0 ? 0 : 1);
                 CameraShaker.Instance.ShakeCamera().Forget();
             }
             
