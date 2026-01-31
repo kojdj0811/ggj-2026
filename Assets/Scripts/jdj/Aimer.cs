@@ -36,6 +36,11 @@ public class Aimer : MonoBehaviour
 
     public void ShootBullet(Vector3 arrivalPoint, float triggerValue, int userId)
     {
+        if(GameTimer.TimeRemained == false)
+        {
+            return;
+        }
+
         (float forceMultiplier, float spreadRadius) = SplitTriggerValuse(triggerValue);
 
         if(spreadRadius > 0f)

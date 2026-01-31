@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class TextureDiscriminator : MonoBehaviour
 {
+    public static TextureDiscriminator Instance;
+
     [ColorUsage(false, false)]
     public Color playerColor1;
     [ColorUsage(false, false)]
@@ -27,8 +29,15 @@ public class TextureDiscriminator : MonoBehaviour
         computeShader.SetVector("PlayerColor2", playerColor2);
     }
 
-    void Start()
+    void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
         Initialize();
     }
 
@@ -48,7 +57,7 @@ public class TextureDiscriminator : MonoBehaviour
     }
 
 
-    (float, float) GetPlyersPixelPercentages()
+    public (float, float) GetPlyersPixelPercentages()
     {
         int[] playerOutput1 = new int[1];
         int[] playerOutput2 = new int[1];
