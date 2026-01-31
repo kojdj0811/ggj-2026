@@ -6202,6 +6202,9 @@ MonoBehaviour:
   ColorDataSO: {fileID: 11400000, guid: 5195f92f9d6e647ecad97d92e84cc138, type: 2}
   _audioSource: {fileID: 0}
   BGM: {fileID: 8300000, guid: eb094df316ab04ce3851ae8d3ede624f, type: 3}
+  EndingCutClip: {fileID: 8300000, guid: 87a1a584841224287b3014d79c223553, type: 3}
+  EndingBGM: {fileID: 8300000, guid: c701e9e7b59f04ee0a678a53416b1cf4, type: 3}
+  ItemGainClip: {fileID: 8300000, guid: eb5f50be3fc6a48f7a62b80254637bc8, type: 3}
   ShootClip: {fileID: 8300000, guid: ccf9217fc5a5a48338a2617f45947a09, type: 3}
   HitClip: {fileID: 8300000, guid: afe2b83624f9e4c199e65b2baadab6cd, type: 3}
 --- !u!4 &1940248498

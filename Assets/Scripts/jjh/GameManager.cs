@@ -12,6 +12,9 @@ public class GameManager : Singleton<GameManager>
     private AudioSource _audioSource;
     [Header("Game Sound Clips")]
     public AudioClip BGM;
+    public AudioClip EndingCutClip;
+    public AudioClip EndingBGM;
+    public AudioClip ItemGainClip;
     public AudioClip ShootClip;
     public AudioClip HitClip;
 
