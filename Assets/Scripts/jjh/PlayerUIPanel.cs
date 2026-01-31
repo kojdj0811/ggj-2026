@@ -1,4 +1,5 @@
-
+using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,6 +27,18 @@ public class PlayerUIPanel : MonoBehaviour
                     OnToggleSelected(toggle);
                 }
             });
+        }
+    }
+
+    private void Start()
+    {
+        if (_imageCharacter != null)
+        {
+            Vector3 startPos = _imageCharacter.rectTransform.localPosition;
+            startPos.y = -1000f;
+            _imageCharacter.rectTransform.localPosition = startPos;
+            _imageCharacter.rectTransform.DOLocalMoveY(0f, 0.7f)
+                .SetEase(Ease.OutBounce);
         }
     }
 
@@ -69,6 +82,9 @@ public class PlayerUIPanel : MonoBehaviour
         if (characterSprite != null)
         {
             _imageCharacter.sprite = characterSprite;
+            // 짧고 귀여운 트윈 효과 (예: scale punch)
+            _imageCharacter.rectTransform.DOKill(); // 기존 트윈 중복 방지
+            _imageCharacter.rectTransform.DOPunchScale(new Vector3(0.2f, 0.15f, 0), 0.25f, 10, 1f);
         }
     }
 }
