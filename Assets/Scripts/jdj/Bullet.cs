@@ -13,8 +13,10 @@ public class Bullet : MonoBehaviour
         {
             GameManager.Instance.PlayGameSound(GameManager.Instance.HitClip);
 
-            if (Physics.Raycast(transform.position, (collision.contacts[0].point - transform.position).normalized, out RaycastHit hitInfo, 1f, LayerMask.GetMask("Canvas")))
+            Debug.LogError("AAA");
+            if (Physics.Raycast(transform.position, (collision.contacts[0].point - transform.position).normalized, out RaycastHit hitInfo, 10f, LayerMask.GetMask("Canvas")))
             {
+            Debug.LogError("BBB");
                 PaintRTTest.Instance.DrawAtUV(hitInfo.textureCoord, brushSize, gameObject.tag.CompareTo("BulletL") == 0 ? 0 : 1);
                 CameraShaker.Instance.ShakeCamera().Forget();
             }
@@ -28,7 +30,7 @@ public class Bullet : MonoBehaviour
             {
                 case "Bomb":
                     Debug.Log("Bullet hit Bomb");
-                    if (Physics.Raycast(transform.position, (collision.contacts[0].point - transform.position).normalized, out RaycastHit hitInfo, 4f, LayerMask.GetMask("Canvas")))
+                    if (Physics.Raycast(transform.position, (collision.contacts[0].point - transform.position).normalized, out RaycastHit hitInfo, 10f, LayerMask.GetMask("Canvas")))
                     {
                         PaintRTTest.Instance.DrawAtUV(hitInfo.textureCoord, 0.4f, gameObject.tag.CompareTo("BulletL") == 0 ? 0 : 1);
                         CameraShaker.Instance.ShakeCamera().Forget();
