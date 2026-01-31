@@ -687,7 +687,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &369941244
 RectTransform:
   m_ObjectHideFlags: 0
@@ -790,7 +790,7 @@ MonoBehaviour:
   B_footMask: {fileID: 2800000, guid: 914196a669d2840249495f5d8ec9ee85, type: 3}
   B_footNormal: {fileID: 2800000, guid: 7e7a9800db99744b1ade68f227826b6d, type: 3}
   B_paintColor: {r: 0, g: 0, b: 1, a: 1}
-  brushSize: 0.2
+  brushSize: 0.4
   paintRotationMinMax: 45
   normalThreshold: 0.5
   normalStrength: 1

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4194896171614408510}
   - component: {fileID: 3216425638381429009}
-  - component: {fileID: 2776161274205887721}
   m_Layer: 0
   m_Name: Aim_Test
   m_TagString: Untagged
@@ -92,25 +91,3 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &2776161274205887721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4718646430468921534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d7826be81b9a4f5eb462cd5e0490318, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HoldSpaceShaderDriver
-  phase1Duration: 0.8
-  phase2ScaleDuration: 0.6
-  baseArcProgress: 0.5
-  baseColorProgress: 0
-  baseScale: 1.2
-  maxScale: 2.95
-  setColors: 0
-  baseColor: {r: 1, g: 1, b: 1, a: 1}
-  targetColor: {r: 1, g: 0, b: 0, a: 1}
-  outlineColor: {r: 0, g: 0, b: 0, a: 1}

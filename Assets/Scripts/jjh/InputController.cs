@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cysharp.Threading.Tasks;
@@ -27,8 +28,11 @@ public class InputController : MonoBehaviour
 
     Player player;
 
+    private Renderer _reticleRenderer;
+
     private void Awake() {
         player = GetComponent<Player>();
+        _reticleRenderer = _reticle.GetComponent<Renderer>();
     }
 
     void LateUpdate()
@@ -106,5 +110,12 @@ public class InputController : MonoBehaviour
     private void OnTriggerInput(InputValue value)
     {
         _triggerInputValue = value.Get<float>();
+
+        MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
+        _reticleRenderer.GetPropertyBlock(materialPropertyBlock);
+
+        float t = (_triggerInputValue / 0.7f) * 0.5f + Mathf.Clamp((_triggerInputValue - 0.7f) / 0.3f, 0f, 1f) * 0.3f;
+        materialPropertyBlock.SetFloat("_Control", _triggerInputValue);
+        _reticleRenderer.SetPropertyBlock(materialPropertyBlock);
     }
 }

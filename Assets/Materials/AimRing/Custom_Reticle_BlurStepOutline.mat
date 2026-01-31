@@ -33,6 +33,7 @@ Material:
     - _DotOutlineThreshold: 0.02
     - _DotOutlineWidth: 0.002
     - _DotRadius: 0.011
+    - _MaxScale: 0.3
     - _OutlineThreshold: 0.01
     - _OutlineWidth: 0.003
     - _Radius: 0.5
