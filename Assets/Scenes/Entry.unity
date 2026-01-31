@@ -2785,6 +2785,13 @@ MonoBehaviour:
   - {fileID: 174854679}
   - {fileID: 612346898}
   - {fileID: 82454446}
+  - {fileID: 621777948}
+  - {fileID: 1531754243}
+  - {fileID: 1528396922}
+  - {fileID: 989071677}
+  - {fileID: 1661140278}
+  - {fileID: 1565045489}
+  - {fileID: 267512418}
   _imageCharacter: {fileID: 1787591166}
 --- !u!1 &932889284
 GameObject:
@@ -3121,6 +3128,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerUIPanel
   PlayerID: 1
   _colorToggles:
+  - {fileID: 946329390}
+  - {fileID: 1881916105}
+  - {fileID: 2108606847}
+  - {fileID: 204759555}
+  - {fileID: 174854679}
+  - {fileID: 612346898}
+  - {fileID: 82454446}
   - {fileID: 621777948}
   - {fileID: 1531754243}
   - {fileID: 1528396922}
