@@ -46,7 +46,7 @@ public class ItemSpawner : MonoBehaviour
         // 타겟의 자식으로 옮기고, 로컬 z축 포지션을 0으로
         spawned.transform.SetParent(_spawnTarget, true);
         Vector3 localPos = spawned.transform.localPosition;
-        localPos.z = 0f;
+        localPos.z = -0.01f;
         spawned.transform.localPosition = localPos;
     }
 

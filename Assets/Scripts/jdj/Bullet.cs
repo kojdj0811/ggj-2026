@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
                     Debug.Log("Bullet hit Bomb");
                     if (Physics.Raycast(transform.position, (collision.contacts[0].point - transform.position).normalized, out RaycastHit hitInfo, 10f, LayerMask.GetMask("Canvas")))
                     {
-                        PaintRTTest.Instance.DrawAtUV(hitInfo.textureCoord, 0.4f, gameObject.tag.CompareTo("BulletL") == 0 ? 0 : 1);
+                        PaintRTTest.Instance.DrawAtUV(hitInfo.textureCoord, 1.0f, gameObject.tag.CompareTo("BulletL") == 0 ? 0 : 1);
                         CameraShaker.Instance.ShakeCamera().Forget();
                     }
                     break;
