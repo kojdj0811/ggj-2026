@@ -10,6 +10,7 @@ public class UIManager : Singleton<UIManager>
     public PlayerUIPanel Player1Panel;
     public PlayerUIPanel Player2Panel;
 
+    public GameObject TitlePanel;
     public Transform Canvas;
     public TextMeshProUGUI CountdownText;
     public GameObject VSLogo;

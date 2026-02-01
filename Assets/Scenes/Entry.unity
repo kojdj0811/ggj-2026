@@ -227,11 +227,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1177067340}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.2, y: 0.5}
-  m_AnchorMax: {x: 0.8, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -947}
-  m_SizeDelta: {x: 0, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0.3}
+  m_AnchorMax: {x: 0.5, y: 0.3}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1152, y: 72}
+  m_Pivot: {x: 0.5, y: 0.3}
 --- !u!114 &11792121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1428,6 +1428,7 @@ MonoBehaviour:
   IsDontDestroyOnLoad: 0
   Player1Panel: {fileID: 860512155}
   Player2Panel: {fileID: 1004398551}
+  TitlePanel: {fileID: 1177067339}
   Canvas: {fileID: 1340231148}
   CountdownText: {fileID: 517138613}
   VSLogo: {fileID: 1210854882}
@@ -2006,11 +2007,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1177067340}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -50}
+  m_AnchorMin: {x: 0.5, y: 0.75}
+  m_AnchorMax: {x: 0.5, y: 0.75}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0.5, y: 0.7}
 --- !u!114 &591876209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3528,8 +3529,8 @@ RectTransform:
   - {fileID: 11792120}
   m_Father: {fileID: 1340231148}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.85}
-  m_AnchorMax: {x: 1, y: 0.95}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -15,6 +16,7 @@ public class GameTimer : MonoBehaviour
     public static bool TimeRemained;
     private float startTime;
     public ItemSpawner ItemSpawner;
+    public Button RestartButton;
 
 
     void Start()
@@ -23,6 +25,15 @@ public class GameTimer : MonoBehaviour
         startTime = Time.timeSinceLevelLoad;
         BgmManager.Instance.PlayBGM(GameManager.Instance.BGM);
         ItemSpawner.Spawn();
+
+        var selectors = FindObjectsByType<EntrySelector>(sortMode: FindObjectsSortMode.None);
+
+        foreach (var selector in selectors)
+        {
+            selector.eventSystem = EventSystem.current;
+            selector.graphicRaycaster = RestartButton.GetComponentInParent<GraphicRaycaster>(true);
+        }
+
         Debug.Log("Game Start!");
     }
 
@@ -31,12 +42,12 @@ public class GameTimer : MonoBehaviour
         bool currentTimeRemained = (Time.timeSinceLevelLoad - startTime) < gameDuration;
         timerFillImage.fillAmount = (Time.timeSinceLevelLoad - startTime) / gameDuration;
 
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             currentTimeRemained = false;
         }
 
-        if(currentTimeRemained == false && TimeRemained == true)
+        if (currentTimeRemained == false && TimeRemained == true)
         {
             OnGameOver();
         }
@@ -50,7 +61,7 @@ public class GameTimer : MonoBehaviour
         TimeRemained = false;
         playerScores = TextureDiscriminator.Instance.GetPlyersPixelPercentages();
         gameOverUI.gameObject.SetActive(true);
-        if(playerScores.Item1 > playerScores.Item2)
+        if (playerScores.Item1 > playerScores.Item2)
         {
             ColorUtility.TryParseHtmlString(
                 GameManager.Instance.ColorDataSO.GetColorCodeByIndex(GameManager.Instance.Players[0].ColorID),

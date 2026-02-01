@@ -20,6 +20,11 @@ public class GameManager : Singleton<GameManager>
 
     public void OnJoinedPlayer(Player player)
     {
+        if(UIManager.Instance.TitlePanel.activeInHierarchy)
+        {
+            UIManager.Instance.TitlePanel.SetActive(false);
+        }
+
         player.transform.SetParent(transform);
         Players.Add(player);
 
