@@ -388,7 +388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 672, y: -121.500015}
+  m_AnchoredPosition: {x: 528, y: -81}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &82454446
@@ -621,7 +621,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 512, y: -121.500015}
+  m_AnchoredPosition: {x: 368, y: -81}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &175191339
@@ -855,7 +855,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 432, y: -121.500015}
+  m_AnchoredPosition: {x: 288, y: -81}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &267512416
@@ -2144,7 +2144,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 592, y: -121.500015}
+  m_AnchoredPosition: {x: 448, y: -81}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &621777947
@@ -3165,7 +3165,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 192, y: -121.500015}
+  m_AnchoredPosition: {x: 48, y: -81}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &989071676
@@ -5939,7 +5939,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 272, y: -121.500015}
+  m_AnchoredPosition: {x: 128, y: -81}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1882574321
@@ -6093,14 +6093,6 @@ MonoBehaviour:
       - m_Name: 
         m_Id: 68cb26d4-3761-49b0-a4cf-6e7d6c21c957
         m_Path: <Gamepad>/leftTrigger
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Join
-        m_Flags: 0
-      - m_Name: 
-        m_Id: ecb0a31b-925a-409a-9f1a-010d469d55bd
-        m_Path: <Keyboard>/space
         m_Interactions: 
         m_Processors: 
         m_Groups: 
@@ -6300,6 +6292,7 @@ MonoBehaviour:
   IsDontDestroyOnLoad: 1
   Players: []
   ColorDataSO: {fileID: 11400000, guid: 5195f92f9d6e647ecad97d92e84cc138, type: 2}
+  PlayerPrefab: {fileID: 5375339759624625350, guid: 5615b9d4cdfa44b49b8256948a3213cb, type: 3}
   _audioSource: {fileID: 0}
   BGM: {fileID: 8300000, guid: eb094df316ab04ce3851ae8d3ede624f, type: 3}
   EndingCutClip: {fileID: 8300000, guid: 87a1a584841224287b3014d79c223553, type: 3}
@@ -6307,6 +6300,9 @@ MonoBehaviour:
   BombClip: {fileID: 8300000, guid: e520e155432c6459893c54019754e547, type: 3}
   ShootClip: {fileID: 8300000, guid: ccf9217fc5a5a48338a2617f45947a09, type: 3}
   HitClip: {fileID: 8300000, guid: afe2b83624f9e4c199e65b2baadab6cd, type: 3}
+  IsDebugMode: 0
+  Player1ManualInput: 0
+  Player2ManualInput: 0
 --- !u!4 &1940248498
 Transform:
   m_ObjectHideFlags: 0
@@ -6719,7 +6715,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 352, y: -121.500015}
+  m_AnchoredPosition: {x: 208, y: -81}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1660057539 &9223372036854775807

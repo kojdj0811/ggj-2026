@@ -87,7 +87,9 @@ public class GameTimer : MonoBehaviour
 
     public void RestartGame()
     {
+        BgmManager.Instance.StopBGM();
         GameManager.Instance.RemoveAllPlayersData();
         SceneManager.LoadScene("Entry");
+        BgmManager.Instance.PlayBGM(GameManager.Instance.BGM);
     }
 }

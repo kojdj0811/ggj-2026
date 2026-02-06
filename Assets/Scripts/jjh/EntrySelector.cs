@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 
 public class EntrySelector : MonoBehaviour
@@ -12,7 +13,9 @@ public class EntrySelector : MonoBehaviour
     public EventSystem eventSystem;
     public GraphicRaycaster graphicRaycaster;
 
+    [SerializeField]    
     private Toggle _currentHitToggle;
+    [SerializeField]    
     private Button _currentHitButton;
     private int _playerId;
 
@@ -50,15 +53,23 @@ public class EntrySelector : MonoBehaviour
         _currentHitButton = null;
         foreach (var result in results)
         {
+            Debug.Log($"Raycast Hit: {result.gameObject.name}");
             var toggle = result.gameObject.GetComponentInParent<Toggle>();
             var button = result.gameObject.GetComponent<Button>();
             if (button != null)
             {
-                if (button.gameObject.GetComponentInParent<PlayerUIPanel>()?.PlayerID != _playerId)
+                if(SceneManager.GetActiveScene().name == "Entry")
                 {
-                    continue; // 다른 플레이어의 버튼이면 무시
+                    if (button.gameObject.GetComponentInParent<PlayerUIPanel>()?.PlayerID != _playerId)
+                    {
+                        continue; // 다른 플레이어의 버튼이면 무시
+                    }
+                    button.Select(); // 하이라이트만
                 }
-                button.Select(); // 하이라이트만
+                else
+                {
+                    button.Select();
+                }
                 _currentHitButton = button;
                 break;
             }

@@ -7,6 +7,7 @@ public class GameManager : Singleton<GameManager>
 {
     public List<Player> Players = new List<Player>();
     public ColorDataSO ColorDataSO;
+    public Player PlayerPrefab;
 
     [SerializeField]
     private AudioSource _audioSource;
@@ -18,9 +19,13 @@ public class GameManager : Singleton<GameManager>
     public AudioClip ShootClip;
     public AudioClip HitClip;
 
+    public bool IsDebugMode = false;
+    public bool Player1ManualInput = false;
+    public bool Player2ManualInput = false;
+
     public void OnJoinedPlayer(Player player)
     {
-        if(UIManager.Instance.TitlePanel.activeInHierarchy)
+        if (UIManager.Instance.TitlePanel.activeInHierarchy)
         {
             UIManager.Instance.TitlePanel.SetActive(false);
         }
@@ -46,9 +51,23 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            UIManager.Instance.CountdownAsync().Forget();
+            if (!Player1ManualInput)
+            {
+                Player player = Instantiate(PlayerPrefab);
+                Player1ManualInput = true;
+                IsDebugMode = true;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.RightShift))
+        {
+            if (!Player2ManualInput)
+            {
+                Player player = Instantiate(PlayerPrefab);
+                Player2ManualInput = true;
+                IsDebugMode = true;
+            }
         }
     }
 
@@ -72,5 +91,7 @@ public class GameManager : Singleton<GameManager>
             Destroy(player.gameObject);
         }
         Players.Clear();
+        Player1ManualInput = false;
+        Player2ManualInput = false;
     }
 }

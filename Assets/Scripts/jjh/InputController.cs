@@ -38,6 +38,57 @@ public class InputController : MonoBehaviour
 
     void LateUpdate()
     {
+        if (GameManager.Instance.IsDebugMode)
+        {
+            if (player.Equals(GameManager.Instance.Players[0]))
+            {
+                float x = 0f, y = 0f;
+                if (Input.GetKey(KeyCode.W)) y += 1f;
+                if (Input.GetKey(KeyCode.S)) y -= 1f;
+                if (Input.GetKey(KeyCode.A)) x -= 1f;
+                if (Input.GetKey(KeyCode.D)) x += 1f;
+                Vector2 input = new Vector2(x, y);
+                _reticleInputValue = input.sqrMagnitude > 1f ? input.normalized : input;
+            }
+            else if (player.Equals(GameManager.Instance.Players[1]))
+            {
+                float x = 0f, y = 0f;
+                if (Input.GetKey(KeyCode.UpArrow)) y += 1f;
+                if (Input.GetKey(KeyCode.DownArrow)) y -= 1f;
+                if (Input.GetKey(KeyCode.LeftArrow)) x -= 1f;
+                if (Input.GetKey(KeyCode.RightArrow)) x += 1f;
+                Vector2 input = new Vector2(x, y);
+                _reticleInputValue = input.sqrMagnitude > 1f ? input.normalized : input;
+            }
+
+            // 트리거 입력 (키보드)
+            KeyCode triggerKey = player.Equals(GameManager.Instance.Players[0]) ? KeyCode.LeftShift : KeyCode.RightShift;
+            bool triggerHeld = Input.GetKey(triggerKey);
+            bool triggerReleased = Input.GetKeyUp(triggerKey);
+            // 누르고 있으면 2초에 걸쳐 0→1, 떼면 0
+            if (triggerHeld)
+            {
+                _triggerInputValue += Time.deltaTime / 0.5f;
+                _triggerInputValue = Mathf.Clamp01(_triggerInputValue);
+
+                MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
+                _reticleRenderer.GetPropertyBlock(materialPropertyBlock);
+
+                float t = (_triggerInputValue / 0.7f) * 0.5f + Mathf.Clamp((_triggerInputValue - 0.7f) / 0.3f, 0f, 1f) * 0.3f;
+                materialPropertyBlock.SetFloat("_Control", _triggerInputValue);
+                _reticleRenderer.SetPropertyBlock(materialPropertyBlock);
+            }
+            else
+            {
+                _triggerInputValue = 0f;
+                MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
+                _reticleRenderer.GetPropertyBlock(materialPropertyBlock);
+                materialPropertyBlock.SetFloat("_Control", _triggerInputValue);
+                _reticleRenderer.SetPropertyBlock(materialPropertyBlock);
+            }
+        }
+
+
         // 트리거 값 버퍼에 저장 (순환)
         _triggerValueBuffer[_triggerValueBufferIndex] = _triggerInputValue;
         _triggerValueBufferIndex = (_triggerValueBufferIndex + 1) % _triggerValueBuffer.Length;
